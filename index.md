@@ -2,7 +2,11 @@
 
 [![ci_badge](https://github.com/royfrancis/renvtools/workflows/r-cmd-check/badge.svg)](https://github.com/royfrancis/renvtools/actions?workflow=r-cmd-check) [![codecov](https://codecov.io/gh/royfrancis/renvtools/branch/main/graph/badge.svg?token=4DOQ8HNQFK)](https://app.codecov.io/gh/royfrancis/renvtools/) [![lifecycle_badge](https://lifecycle.r-lib.org/articles/figures/lifecycle-experimental.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 
-An R package to read, write, summarize and compare renv lock files.
+An R package to read, write and compare renv lock files.
+
+- Read lock files as lists or tibbles
+- Write lock files
+- Summarize and compare lock files
 
 ## Installation
 

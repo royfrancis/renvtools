@@ -155,14 +155,14 @@ write_lock <- function(x, path) {
 #'   file.path(system.file("extdata", package = "renvtools"), "renv-r4.3.2.lock")
 #' )
 #' l <- read_lock(paths, format = "list")
-#' summarize_locks(l)
+#' summarize_lock(l)
 #'
 #' @importFrom purrr map map_chr map_int
 #' @importFrom tibble tibble
 #' @importFrom dplyr mutate select relocate
 #' @export
 #'
-summarize_locks <- function(x) {
+summarize_lock <- function(x) {
   if (!is.list(x)) stop("Input is not a list.")
 
   if (is.rt_tibble(x)) {
@@ -208,12 +208,12 @@ summarize_locks <- function(x) {
 #'   file.path(system.file("extdata", package = "renvtools"), "renv-r4.3.2.lock")
 #' )
 #' l <- read_lock(paths, format = "list")
-#' compare_locks_pair(l)
+#' compare_lock_pair(l)
 #' @importFrom tibble tibble
 #' @importFrom purrr map_chr
 #' @export
 #'
-compare_locks_pair <- function(x) {
+compare_lock_pair <- function(x) {
   if (!is.list(x)) stop("Input is not a list.")
   if (length(x) != 2) stop("Input must be a list of length of 2.")
 
@@ -259,8 +259,8 @@ compare_locks_pair <- function(x) {
   return(dfr)
 }
 
-#' @title Compare multiple lockfiles
-#' @description Compare multiple lockfiles
+#' @title Compare lock files
+#' @description Compare lock files
 #' @param x A list of lists or list of 'rt_tibble'. An output from `read_lock()`.
 #' @return A tibble
 #' @examples
@@ -269,14 +269,14 @@ compare_locks_pair <- function(x) {
 #'   file.path(system.file("extdata", package = "renvtools"), "renv-r4.3.2.lock")
 #' )
 #' l <- read_lock(paths, format = "list")
-#' compare_locks(l)
+#' compare_lock(l)
 #' @importFrom purrr map_dfr
 #' @importFrom dplyr bind_rows
 #' @importFrom utils combn
 #' @export
 #'
 #'
-compare_locks <- function(x) {
+compare_lock <- function(x) {
   if (!is.list(x)) stop("Input is not a list.")
 
   elements <- names(x)
@@ -284,12 +284,12 @@ compare_locks <- function(x) {
 
   combns <- combn(length(x), 2)
 
-  # Apply compare_locks_pair on each pair
+  # Apply compare_lock_pair on each pair
   fn <- function(indices) {
     pair_names <- elements[indices]
     pair_list <- x[indices]
     names(pair_list) <- pair_names
-    compare_locks_pair(pair_list)
+    compare_lock_pair(pair_list)
   }
 
   res_list <- apply(combns, 2, fn)

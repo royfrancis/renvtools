@@ -51,8 +51,8 @@ reference:
   desc: >
     Functions to compare lockfiles
   contents:
-  - summarize_locks
-  - compare_locks
+  - summarize_lock
+  - compare_lock
 
 - title: Get info
   desc: >
@@ -63,11 +63,11 @@ reference:
   - get_version_renv
   - get_version_pkg
 
-- title: Helper functions
+- title: Other functions
   desc: >
-    Miscl helper functions
+    Other miscl functions
   contents:
-  - compare_locks_pair
+  - compare_lock_pair
   - list_to_tbl
   - tbl_to_list
   - is.rt_tibble

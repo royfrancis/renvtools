@@ -106,7 +106,7 @@ Summarize multiple lock files.
 ```{r}
 paths <- list.files(system.file("extdata", package = "renvtools"), full.names = TRUE)
 l <- read_lock(paths, format = "list")
-d <- summarize_locks(l)
+d <- summarize_lock(l)
 d
 ```
 
@@ -128,11 +128,11 @@ Compare two or more lockfiles in a pairwise manner.
 ```{r}
 paths <- list.files(system.file("extdata", package = "renvtools"), full.names = TRUE)
 l <- read_lock(paths, format = "list")
-compare_locks(l)
+compare_lock(l)
 ```
 
 ```{r}
-compare_locks(l)[, 1:12] %>% as.data.frame()
+compare_lock(l)[, 1:12] %>% as.data.frame()
 ```
 
 ## Other details

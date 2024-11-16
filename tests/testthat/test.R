@@ -302,34 +302,34 @@ test_that("check identical io", {
 
 # summarize_lock ---------------------------------------------------------------
 
-testthat::context("summarize_locks")
+testthat::context("summarize_lock")
 
 test_that("lists", {
   # no input specified
-  expect_error(summarize_locks())
+  expect_error(summarize_lock())
   # input is not a list
-  expect_error(summarize_locks("bla"))
+  expect_error(summarize_lock("bla"))
   # default usage
   l <- read_lock(paths, format = "list")
-  expect_no_error(summarize_locks(l))
+  expect_no_error(summarize_lock(l))
   # output is a tibble
-  expect_s3_class(summarize_locks(l), "tbl")
+  expect_s3_class(summarize_lock(l), "tbl")
   # without names
   l <- read_lock(paths_1, format = "list")
-  expect_no_error(summarize_locks(l))
+  expect_no_error(summarize_lock(l))
   names(l) <- NULL
-  expect_no_error(summarize_locks(l))
+  expect_no_error(summarize_lock(l))
   # output is a tibble
-  expect_s3_class(summarize_locks(l), "tbl")
+  expect_s3_class(summarize_lock(l), "tbl")
 })
 
 test_that("tibbles", {
   # when tibbles are provided
   l <- read_lock(paths, format = "tibble")
-  expect_no_error(summarize_locks(l))
-  expect_s3_class(summarize_locks(l), "tbl")
-  expect_no_error(summarize_locks(l[[1]]))
-  expect_s3_class(summarize_locks(l[[1]]), "tbl")
+  expect_no_error(summarize_lock(l))
+  expect_s3_class(summarize_lock(l), "tbl")
+  expect_no_error(summarize_lock(l[[1]]))
+  expect_s3_class(summarize_lock(l[[1]]), "tbl")
 })
 
 # not identical results
@@ -337,66 +337,66 @@ test_that("tibbles", {
 #  # when tibbles are provided
 #  l1 <- read_lock(paths, format = "tibble")
 #  l2 <- read_lock(paths, format = "list")
-#  expect_equal(summarize_locks(l1),summarize_locks(l2))
+#  expect_equal(summarize_lock(l1),summarize_lock(l2))
 # })
 
-# compare_locks_pair ------------------------------------------------------------
+# compare_lock_pair ------------------------------------------------------------
 
-testthat::context("compare_locks_pair")
+testthat::context("compare_lock_pair")
 
 test_that("bad input", {
   # no input specified
-  expect_error(compare_locks_pair())
+  expect_error(compare_lock_pair())
   # input is not a list
-  expect_error(compare_locks_pair("bla"))
+  expect_error(compare_lock_pair("bla"))
   # input contains more than two items
   l <- read_lock(paths, format = "list")
-  expect_error(compare_locks_pair(l))
+  expect_error(compare_lock_pair(l))
 })
 
 test_that("general", {
   # default usage
   l <- read_lock(paths[1:2], format = "list")
-  expect_no_error(compare_locks_pair(l))
+  expect_no_error(compare_lock_pair(l))
   # output is a tibble
-  expect_s3_class(compare_locks_pair(l), "tbl")
+  expect_s3_class(compare_lock_pair(l), "tbl")
   # without names
   l <- read_lock(paths_1[1:2], format = "list")
-  expect_no_error(compare_locks_pair(l))
+  expect_no_error(compare_lock_pair(l))
   names(l) <- NULL
-  expect_no_error(compare_locks_pair(l))
+  expect_no_error(compare_lock_pair(l))
   # output is a tibble
-  expect_s3_class(compare_locks_pair(l), "tbl")
+  expect_s3_class(compare_lock_pair(l), "tbl")
   # error when tibbles are provided
   l <- read_lock(paths[1:2], format = "tibble")
-  expect_no_error(compare_locks_pair(l))
+  expect_no_error(compare_lock_pair(l))
 })
 
-# compare_locks ----------------------------------------------------------------
+# compare_lock ----------------------------------------------------------------
 
-testthat::context("compare_locks")
+testthat::context("compare_lock")
 
 test_that("bad input", {
   # no input specified
-  expect_error(compare_locks())
+  expect_error(compare_lock())
   # input is not a list
-  expect_error(compare_locks("bla"))
+  expect_error(compare_lock("bla"))
 })
 
 test_that("general", {
   # default usage
   l <- read_lock(paths, format = "list")
-  expect_no_error(compare_locks(l))
+  expect_no_error(compare_lock(l))
   # output is a tibble
-  expect_s3_class(compare_locks(l), "tbl")
+  expect_s3_class(compare_lock(l), "tbl")
   # without names
   l <- read_lock(paths_1, format = "list")
-  expect_no_error(compare_locks(l))
+  expect_no_error(compare_lock(l))
   names(l) <- NULL
-  expect_no_error(compare_locks(l))
+  expect_no_error(compare_lock(l))
   # output is a tibble
-  expect_s3_class(compare_locks(l), "tbl")
+  expect_s3_class(compare_lock(l), "tbl")
   # error when tibbles are provided
   l <- read_lock(paths, format = "tibble")
-  expect_no_error(compare_locks(l))
+  expect_no_error(compare_lock(l))
 })

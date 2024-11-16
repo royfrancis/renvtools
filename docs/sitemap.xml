@@ -6,8 +6,8 @@
 <url><loc>https://github.com/royfrancis/renvtools/authors.html</loc></url>
 <url><loc>https://github.com/royfrancis/renvtools/index.html</loc></url>
 <url><loc>https://github.com/royfrancis/renvtools/news/index.html</loc></url>
-<url><loc>https://github.com/royfrancis/renvtools/reference/compare_locks.html</loc></url>
-<url><loc>https://github.com/royfrancis/renvtools/reference/compare_locks_pair.html</loc></url>
+<url><loc>https://github.com/royfrancis/renvtools/reference/compare_lock.html</loc></url>
+<url><loc>https://github.com/royfrancis/renvtools/reference/compare_lock_pair.html</loc></url>
 <url><loc>https://github.com/royfrancis/renvtools/reference/get_version_bioc.html</loc></url>
 <url><loc>https://github.com/royfrancis/renvtools/reference/get_version_pkg.html</loc></url>
 <url><loc>https://github.com/royfrancis/renvtools/reference/get_version_r.html</loc></url>
@@ -20,7 +20,7 @@
 <url><loc>https://github.com/royfrancis/renvtools/reference/print.rt_list.html</loc></url>
 <url><loc>https://github.com/royfrancis/renvtools/reference/print.rt_tibble.html</loc></url>
 <url><loc>https://github.com/royfrancis/renvtools/reference/read_lock.html</loc></url>
-<url><loc>https://github.com/royfrancis/renvtools/reference/summarize_locks.html</loc></url>
+<url><loc>https://github.com/royfrancis/renvtools/reference/summarize_lock.html</loc></url>
 <url><loc>https://github.com/royfrancis/renvtools/reference/tbl_to_list.html</loc></url>
 <url><loc>https://github.com/royfrancis/renvtools/reference/write_lock.html</loc></url>
 </urlset>

@@ -8,7 +8,7 @@ An R package to read, write, summarize and compare renv lock files.
 
 ```
 # install dependencies
-install.packages(c("dplyr","jsonlite","purrr","renv","tibble","tidyr","remotes"))
+install.packages(c("dplyr", "jsonlite", "purrr", "renv", "tibble", "tidyr", "remotes"))
 
 # install from github
 remotes::install_github("royfrancis/renvtools")

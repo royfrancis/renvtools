@@ -1,72 +1,72 @@
 #' @title Read lock files
 #' @description Read lock files as tibble or list
 #' @param paths Path to lock files
-#' @param type Return object type. Either 'tibble' or 'list'
-#' @param method Read method. Either 'default' or 'renv'. See details.
+#' @param format Return object format. Either 'list', 'tibble' or 'renv'. See details.
 #' @param encoding Text encoding, See `jsonlite::fromJSON()`.
 #' @return A tibble or a list
 #' @details
 #' If argument `paths` is longer than one, then a list is returned.
-#' Argument `type` denotes whether to return a tibble or a list.
-#' Argument `method` denotes which method to use to read a lockfile. 'default'
-#' reads the lockfile and preserves it as it is as much as possible. 'renv' uses
-#' the read function from renv. It might update the lockfile structure to be current.
+#' Argument `format` denotes return object format for the lockfile.
+#' Argument `method` denotes which method to use to read a lockfile. 'list'
+#' reads the lockfile and preserves it as it is as much as possible. 'tibble'
+#' returns a tibble.'renv' uses the read function from renv
+#' (`renv::lockfile_read()`) which returns a list.
+#' This option might update the lockfile structure to be current.
 #'
 #' @examples
 #' # read one lock file as a tibble
 #' path <- file.path(system.file("extdata", package = "renvtools"), "renv-r4.4.1.lock")
-#' read_lock(path, type = "tibble")
+#' read_lock(path, format = "tibble")
 #'
 #' # read one lock file as a list
-#' x <- read_lock(path, type = "list")
+#' x <- read_lock(path, format = "list")
 #'
 #' # read several lock files as a list of tibbles
 #' paths <- list.files(system.file("extdata", package = "renvtools"), full.names = TRUE)
 #' names(paths) <- basename(paths)
-#' x <- read_lock(paths, type = "tibble")
+#' x <- read_lock(paths, format = "tibble")
 #'
 #' # read several lock files as a list of lists
-#' x <- read_lock(paths, type = "list")
+#' x <- read_lock(paths, format = "list")
 #'
 #' @importFrom jsonlite fromJSON
 #' @importFrom renv lockfile_read
 #' @importFrom purrr map
 #' @export
 #'
-read_lock <- function(paths = "renv.lock", type = "list", method = "default", encoding = "UTF-8") {
-  if (!type %in% c("tibble", "list")) stop("Argument 'type' must be either 'tibble' or 'list'.")
-  if (!method %in% c("default", "renv")) stop("Argument 'method' must be either 'default' or 'renv'.")
-
-  fn <- function(pa, type, method) {
-    if (method == "default") out <- fromJSON(readLines(pa, warn = FALSE, encoding = encoding))
-    if (method == "renv") {
+read_lock <- function(paths = "renv.lock", format = "list", encoding = "UTF-8") {
+  fn <- function(pa, format) {
+    if (format == "list") {
+      out <- fromJSON(readLines(pa, warn = FALSE, encoding = encoding))
+      class(out) <- c("rt_list", class(out))
+    } else if (format == "tibble") {
+      out <- fromJSON(readLines(pa, warn = FALSE, encoding = encoding))
+      out <- list_to_tbl(out)
+    } else if (format == "renv") {
       out <- lockfile_read(pa)
-      class(out) <- c(class(out), "list")
+      class(out) <- c(class(out), "rt_list", "list")
+    } else {
+      stop("Argument 'format' must be one of 'list', 'tibble' or 'renv'.")
     }
-
-    if (type == "tibble") {
-      return(list_to_tbl(out))
-    } else if (type == "list") {
-      return(out)
-    }
+    return(out)
   }
 
   if (length(paths) > 1) {
-    l <- map(paths, ~ fn(.x, type = type, method = method))
+    l <- map(paths, ~ fn(.x, format = format))
     if (is.null(names(paths))) {
       padded_nums <- sprintf(paste0("%0", nchar(as.character(length(paths))), "d"), 1:length(paths))
       names(paths) <- paste0("lf_", padded_nums)
     }
     names(l) <- names(paths)
   } else {
-    l <- fn(paths, type = type, method = method)
+    l <- fn(paths, format = format)
   }
 
   return(l)
 }
 
-#' @title Convert a list to a rt_tibble
-#' @description Convert a list to a rt_tibble
+#' @title Convert an rt_list to an rt_tibble
+#' @description Convert a single rt_list to an rt_tibble
 #' @param x A list containing one lockfile. A list from `read_lock()`.
 #' @return A tibble of class 'rt_tibble'.
 #' @importFrom tibble tibble
@@ -74,8 +74,8 @@ read_lock <- function(paths = "renv.lock", type = "list", method = "default", en
 #'
 list_to_tbl <- function(x) {
   if (!is.list(x)) stop("Input is not a list.")
-  if (is.rt_tibble(x)) stop("Given input is of class 'rt_tibble'. Input must be a list.")
-  if (is.rt_tibble(x[[1]])) stop("Given input contains class 'rt_tibble'. Input must be a list.")
+  if (is.rt_tibble(x)) stop("Given input is of class 'rt_tibble'. Input must be a single 'rt_list' class (list).")
+  if (is.rt_tibble(x[[1]])) stop("Given input contains class 'rt_tibble'. Input must be a single 'rt_list' class (list).")
 
   metadata <- x
   metadata$Packages <- NULL
@@ -90,13 +90,14 @@ list_to_tbl <- function(x) {
   return(out)
 }
 
-#' @title Convert a rt_tibble to a list
-#' @description Convert a rt_tibble to a list
+#' @title Convert a rt_tibble to an rt_list
+#' @description Convert an rt_tibble to a rt_list
 #' @param x A tibble of class 'rt_tibble' from one lockfile. A tibble from `read_lock()`.
 #' @return A list
 #' @importFrom purrr pmap set_names discard
 #'
 tbl_to_list <- function(x) {
+  if (is.rt_tibble(x[[1]])) stop("Input must be a single tibble with class 'rt_tibble'.")
   if (!is.rt_tibble(x)) stop("Input must be a tibble with class 'rt_tibble'.")
 
   # Convert the tibble back to a list
@@ -124,28 +125,23 @@ tbl_to_list <- function(x) {
   # if(is.null(attr(tbl,"metadata")))
   final_list <- attr(x, "metadata")
   final_list$Packages <- clean_list
+  class(final_list) <- c("rt_list", class(final_list))
 
   return(final_list)
 }
 
 #' @title Export a lock file
 #' @description Write a rt_tibble or a list as a lock file
-#' @param x A single list or an 'rt_tibble'. An single file output from `read_lock()`.
+#' @param x A single list or a single 'rt_tibble'. An single file output from `read_lock()`.
 #' @param path Output path with filename
 #' @return None
 #' @importFrom jsonlite toJSON
 #' @export
 #'
 write_lock <- function(x, path) {
-  if (!is.list(x)) stop("Input is not a rt_tibble (tibble) or a list.")
-  if (is.rt_tibble(x[[1]])) stop("Input must be a single rt_tibble (tibble) or a single list item.")
-
-  if (is.rt_tibble(x)) {
-    x <- tbl_to_list(x)
-  }
-
+  if (!is.rt(x)) stop("Input must be a single rt_tibble (tibble) or a single rt_list (list) item.")
+  if (is.rt_tibble(x)) x <- tbl_to_list(x)
   write(toJSON(x, pretty = TRUE, auto_unbox = TRUE), path)
-
   return(invisible(TRUE))
 }
 
@@ -158,7 +154,7 @@ write_lock <- function(x, path) {
 #'   file.path(system.file("extdata", package = "renvtools"), "renv-r4.4.1.lock"),
 #'   file.path(system.file("extdata", package = "renvtools"), "renv-r4.3.2.lock")
 #' )
-#' l <- read_lock(paths, type = "list")
+#' l <- read_lock(paths, format = "list")
 #' summarize_locks(l)
 #'
 #' @importFrom purrr map map_chr map_int
@@ -190,6 +186,7 @@ summarize_locks <- function(x) {
     mutate(
       label = names(lst),
       rver = map_chr(lock_files, ~ .x$R$Version),
+      renvver = map_chr(lock_files, get_version_renv),
       pkgs_len = map_int(lock_files, ~ length(.x$Packages)),
       repositories = map(lst, ~ as.data.frame(table(unlist(map(.x$Packages, "Repository"))))),
       sources = map(lst, ~ as.data.frame(table(unlist(map(.x$Packages, "Source"))))),
@@ -210,7 +207,7 @@ summarize_locks <- function(x) {
 #'   file.path(system.file("extdata", package = "renvtools"), "renv-r4.4.1.lock"),
 #'   file.path(system.file("extdata", package = "renvtools"), "renv-r4.3.2.lock")
 #' )
-#' l <- read_lock(paths, type = "list")
+#' l <- read_lock(paths, format = "list")
 #' compare_locks_pair(l)
 #' @importFrom tibble tibble
 #' @importFrom purrr map_chr
@@ -243,16 +240,18 @@ compare_locks_pair <- function(x) {
     b = names(lst)[2],
     a_rver = lst[[1]]$R$Version,
     b_rver = lst[[2]]$R$Version,
+    a_renvver = get_version_renv(lst[[1]]),
+    b_renvver = get_version_renv(lst[[2]]),
     jaccard = jaccard(a_pkgs, b_pkgs),
     a_pkgs_len = length(a_pkgs),
     b_pkgs_len = length(lst[[2]]$Packages),
-    a_pkgs_len_only = length(setdiff(a_pkgs, b_pkgs)),
-    b_pkgs_len_only = length(setdiff(b_pkgs, a_pkgs)),
+    a_pkgs_len_unique = length(setdiff(a_pkgs, b_pkgs)),
+    b_pkgs_len_unique = length(setdiff(b_pkgs, a_pkgs)),
     pkgs_total_len = length(union(a_pkgs, b_pkgs)),
     a_pkgs = list(a_pkgs),
     b_pkgs = list(b_pkgs),
-    a_pkgs_only = list(setdiff(a_pkgs, b_pkgs)),
-    b_pkgs_only = list(setdiff(b_pkgs, a_pkgs)),
+    a_pkgs_unique = list(setdiff(a_pkgs, b_pkgs)),
+    b_pkgs_unique = list(setdiff(b_pkgs, a_pkgs)),
     pkgs_common = list(intersect(a_pkgs, b_pkgs)),
     pkgs_total = list(union(a_pkgs, b_pkgs))
   )
@@ -269,7 +268,7 @@ compare_locks_pair <- function(x) {
 #'   file.path(system.file("extdata", package = "renvtools"), "renv-r4.4.1.lock"),
 #'   file.path(system.file("extdata", package = "renvtools"), "renv-r4.3.2.lock")
 #' )
-#' l <- read_lock(paths, type = "list")
+#' l <- read_lock(paths, format = "list")
 #' compare_locks(l)
 #' @importFrom purrr map_dfr
 #' @importFrom dplyr bind_rows
@@ -295,37 +294,6 @@ compare_locks <- function(x) {
 
   res_list <- apply(combns, 2, fn)
   return(bind_rows(res_list))
-}
-
-#' @title Print function for rt_tibble
-#' @description Print function for rt_tibble
-#' @param x An object of class rt_tibble
-#' @param ... Other
-#' @details
-#' Displays R version along with table view for now.
-#'
-#' @method print rt_tibble
-#' @export
-#'
-print.rt_tibble <- function(x, ...) {
-  if (!is.null(attr(x, "metadata")$R$Version)) cat(paste("R version:", attr(x, "metadata")$R$Version, "\n"))
-  if (!is.null(attr(x, "metadata")$Bioconductor$Version)) cat(paste("Bioc version:", attr(x, "metadata")$Bioconductor$Version, "\n"))
-  NextMethod(x)
-  invisible(x)
-}
-
-#' @title Check if an object is rt_tibble class
-#' @description Check if an object is rt_tibble class
-#' @param x An object of class rt_tibble
-#' @return TRUE or FALSE
-#' @export
-#'
-is.rt_tibble <- function(x) {
-  if ("rt_tibble" %in% class(x)) {
-    return(TRUE)
-  } else {
-    return(FALSE)
-  }
 }
 
 utils::globalVariables()

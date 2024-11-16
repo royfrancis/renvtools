@@ -4,19 +4,12 @@
 \alias{read_lock}
 \title{Read lock files}
 \usage{
-read_lock(
-  paths = "renv.lock",
-  type = "list",
-  method = "default",
-  encoding = "UTF-8"
-)
+read_lock(paths = "renv.lock", format = "list", encoding = "UTF-8")
 }
 \arguments{
 \item{paths}{Path to lock files}
 
-\item{type}{Return object type. Either 'tibble' or 'list'}
-
-\item{method}{Read method. Either 'default' or 'renv'. See details.}
+\item{format}{Return object format. Either 'list', 'tibble' or 'renv'. See details.}
 
 \item{encoding}{Text encoding, See \code{jsonlite::fromJSON()}.}
 }
@@ -28,25 +21,27 @@ Read lock files as tibble or list
 }
 \details{
 If argument \code{paths} is longer than one, then a list is returned.
-Argument \code{type} denotes whether to return a tibble or a list.
-Argument \code{method} denotes which method to use to read a lockfile. 'default'
-reads the lockfile and preserves it as it is as much as possible. 'renv' uses
-the read function from renv. It might update the lockfile structure to be current.
+Argument \code{format} denotes return object format for the lockfile.
+Argument \code{method} denotes which method to use to read a lockfile. 'list'
+reads the lockfile and preserves it as it is as much as possible. 'tibble'
+returns a tibble.'renv' uses the read function from renv
+(\code{renv::lockfile_read()}) which returns a list.
+This option might update the lockfile structure to be current.
 }
 \examples{
 # read one lock file as a tibble
 path <- file.path(system.file("extdata", package = "renvtools"), "renv-r4.4.1.lock")
-read_lock(path, type = "tibble")
+read_lock(path, format = "tibble")
 
 # read one lock file as a list
-x <- read_lock(path, type = "list")
+x <- read_lock(path, format = "list")
 
 # read several lock files as a list of tibbles
 paths <- list.files(system.file("extdata", package = "renvtools"), full.names = TRUE)
 names(paths) <- basename(paths)
-x <- read_lock(paths, type = "tibble")
+x <- read_lock(paths, format = "tibble")
 
 # read several lock files as a list of lists
-x <- read_lock(paths, type = "list")
+x <- read_lock(paths, format = "list")
 
 }

@@ -14,22 +14,43 @@ Renv creates renv.lock file which is a JSON object and that can be a bit unweild
 
 ## Read lockfile
 
-Load the library and let's read in a lock file.
+Load the library and let's read in a lock file. If paths are named, they are used in downstream functions else they are named automatically.
 
 ```{r}
 library(renvtools)
 # using a sample lockfile from the package
 path <- file.path(system.file("extdata", package = "renvtools"), "renv-r4.4.1.lock")
-# provide path to a lock file, set type to tibble
-tbl <- read_lock(path, type = "tibble")
+# provide path to a lock file, set format to tibble
+lst <- read_lock(path)
+lst
+```
+
+You can get some useful information about the lockfile. You can also explore this data as you would explore a list.
+
+```{r}
+#| results: hold
+get_version_r(lst)
+get_version_bioc(lst)
+get_version_renv(lst)
+get_version_pkg(lst, "dplyr")
+```
+
+The default is to read into a list. Change `format` to **tibble** to read as table.
+
+```{r}
+tbl <- read_lock(path, format = "tibble")
 tbl
 ```
+
+<p style="color: #8a6d3b;background-color: #fcf8e3;border-color:#faebcc;padding: 6px;border-radius: 4px;" style="inline-block">
+<i class="fas fa-exclamation-circle"></i> &nbsp; Note that the list and tibble formats may not be identical in information depending on the input especially in case of NAs and NULLs.
+</p>
 
 This gives you a tibble with all the package information. Now you can handle this like you would with any tibble.
 
 ```{r}
-library(dplyr)
-library(tidyr)
+suppressMessages(library(dplyr))
+suppressMessages(library(tidyr))
 
 # number of packages by source
 tbl |>
@@ -53,25 +74,23 @@ tbl |>
   summarize(N = length(unlist(Requirements)))
 ```
 
-You can also read in a lockfile as a list rather than a tibble.
-
-```{r}
-l <- read_lock(path, type = "list")
-```
-
 Read several lock files and you get a list of tibbles or a list of lists.
 
 ```{r}
 paths <- list.files(file.path(system.file("extdata", package = "renvtools")), full.names = TRUE)
 # read as list
-# read_lock(paths[1:3], type = "list")
+# read_lock(paths[1:3], format = "list")
 # read as tibble
-read_lock(paths[1:3], type = "tibble")
+read_lock(paths[1:3], format = "tibble")
 ```
 
 ## Write lockfile
 
-Filter packages as needed and then write to a new lock file. Note that NAs and NULLs may be discarded.
+Filter packages as needed and then write to a new lock file.
+
+<p style="color: #8a6d3b;background-color: #fcf8e3;border-color:#faebcc;padding: 6px;border-radius: 4px;" style="inline-block">
+<i class="fas fa-exclamation-circle"></i> &nbsp; Reading a loackfile and then writing it may not give identical lockfiles as NAs and NULLs may be discarded.
+</p>
 
 ```{r}
 #| eval: false
@@ -86,7 +105,7 @@ Summarize multiple lock files.
 
 ```{r}
 paths <- list.files(system.file("extdata", package = "renvtools"), full.names = TRUE)
-l <- read_lock(paths, type = "list")
+l <- read_lock(paths, format = "list")
 d <- summarize_locks(l)
 d
 ```
@@ -108,23 +127,43 @@ Compare two or more lockfiles in a pairwise manner.
 
 ```{r}
 paths <- list.files(system.file("extdata", package = "renvtools"), full.names = TRUE)
-l <- read_lock(paths, type = "list")
+l <- read_lock(paths, format = "list")
 compare_locks(l)
 ```
 
 ```{r}
-compare_locks(l)[,1:10] %>% as.data.frame()
+compare_locks(l)[, 1:13] %>% as.data.frame()
 ```
 
 ## Other details
 
-The tibbles are actually a class of it's own called `rt_tibble`. The `rt_tibble` objects contains only information about the packages. What about other metadata such as R version, Bioconductor version etc? These are stored as attributes along with the tibble. They are used when writing lock files.
-
-They can be accessed using `attr()`.
+The lists are a class of it's own called `rt_list`. This is why they are printed a bit differently. But, they can be treated like regular lists.
 
 ```{r}
 path <- file.path(system.file("extdata", package = "renvtools"), "renv-r4.4.1.lock")
-tbl <- read_lock(path, type = "tibble")
+lst <- read_lock(path, format = "list")
+lst
+```
+
+```{r}
+class(lst)
+```
+
+The tibbles are also a class of it's own called `rt_tibble`. 
+
+```{r}
+path <- file.path(system.file("extdata", package = "renvtools"), "renv-r4.4.1.lock")
+tbl <- read_lock(path, format = "tibble")
+tbl
+```
+
+```{r}
+class(tbl)
+```
+
+The `rt_tibble` objects contains only information about the packages. What about other metadata such as R version, Bioconductor version etc? These are stored as attributes along with the tibble. They are used when writing lock files. They can be accessed using `attr()`.
+
+```{r}
 attr(tbl, "metadata")
 ```
 
@@ -132,7 +171,7 @@ Or from a list of renvtools tibbles.
 
 ```{r}
 paths <- list.files(file.path(system.file("extdata", package = "renvtools")), full.names = TRUE)
-tbl <- read_lock(paths, type = "tibble")
+tbl <- read_lock(paths, format = "tibble")
 lapply(tbl, attr, "metadata")
 ```
 

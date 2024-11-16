@@ -7,7 +7,7 @@
 write_lock(x, path)
 }
 \arguments{
-\item{x}{A single list or an 'rt_tibble'. An single file output from \code{read_lock()}.}
+\item{x}{A single list or a single 'rt_tibble'. An single file output from \code{read_lock()}.}
 
 \item{path}{Output path with filename}
 }

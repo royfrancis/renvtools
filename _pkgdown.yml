@@ -54,6 +54,15 @@ reference:
   - summarize_locks
   - compare_locks
 
+- title: Get info
+  desc: >
+    Get key info from lockfiles
+  contents:
+  - get_version_r
+  - get_version_bioc
+  - get_version_renv
+  - get_version_pkg
+
 - title: Helper functions
   desc: >
     Miscl helper functions
@@ -63,6 +72,9 @@ reference:
   - tbl_to_list
   - is.rt_tibble
   - print.rt_tibble
+  - is.rt_list
+  - print.rt_list
+  - is.rt
 
 articles:
 

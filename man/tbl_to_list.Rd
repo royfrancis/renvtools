@@ -2,7 +2,7 @@
 % Please edit documentation in R/renvtools.r
 \name{tbl_to_list}
 \alias{tbl_to_list}
-\title{Convert a rt_tibble to a list}
+\title{Convert a rt_tibble to an rt_list}
 \usage{
 tbl_to_list(x)
 }
@@ -13,5 +13,5 @@ tbl_to_list(x)
 A list
 }
 \description{
-Convert a rt_tibble to a list
+Convert an rt_tibble to a rt_list
 }

@@ -4,7 +4,6 @@
 .Ruserdata
 .quarto
 .DS_Store
-docs
 inst/doc
 *.code-workspace
 *.Rproj

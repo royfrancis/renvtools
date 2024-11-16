@@ -2,7 +2,7 @@
 % Please edit documentation in R/renvtools.r
 \name{list_to_tbl}
 \alias{list_to_tbl}
-\title{Convert a list to a rt_tibble}
+\title{Convert an rt_list to an rt_tibble}
 \usage{
 list_to_tbl(x)
 }
@@ -13,5 +13,5 @@ list_to_tbl(x)
 A tibble of class 'rt_tibble'.
 }
 \description{
-Convert a list to a rt_tibble
+Convert a single rt_list to an rt_tibble
 }

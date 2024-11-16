@@ -20,6 +20,6 @@ paths <- c(
   file.path(system.file("extdata", package = "renvtools"), "renv-r4.4.1.lock"),
   file.path(system.file("extdata", package = "renvtools"), "renv-r4.3.2.lock")
 )
-l <- read_lock(paths, type = "list")
+l <- read_lock(paths, format = "list")
 compare_locks_pair(l)
 }

@@ -1,0 +1,72 @@
+title: renvtools
+url: https://github.com/royfrancis/renvtools
+template:
+  bootstrap: 5
+  bootswatch: zephyr
+  bslib:
+    primary: "#b39a3a"
+
+authors:
+  Roy Francis:
+    href: https://royfrancis.com
+
+navbar:
+  bg: primary
+  structure:
+    left:
+    - home
+    - articles
+    - reference
+    - news
+    right:
+    - github
+  components:
+    home:
+      icon: fa-home fa-lg
+      href: index.html
+    reference:
+      text: Reference
+      href: reference/index.html
+    news:
+      text: Versions
+      href: news/index.html
+    github:
+      icon: fa-github fa-lg fas
+      href: https://github.com/royfrancis/renvtools
+
+home:
+  sidebar:
+    structure: [links, license, citation, authors, dev]
+
+reference:
+
+- title: Input and output lockfiles
+  desc: >
+    Functions to read and write lockfiles
+  contents:
+  - read_lock
+  - write_lock
+
+- title: Compare lockfiles
+  desc: >
+    Functions to compare lockfiles
+  contents:
+  - summarize_locks
+  - compare_locks
+
+- title: Helper functions
+  desc: >
+    Miscl helper functions
+  contents:
+  - compare_locks_pair
+  - list_to_tbl
+  - tbl_to_list
+  - is.rt_tibble
+  - print.rt_tibble
+
+articles:
+
+- title: Articles
+  navbar: Usage
+  contents:
+  - usage

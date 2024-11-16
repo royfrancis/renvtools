@@ -1,0 +1,143 @@
+---
+title: "Usage"
+subtitle: "Using renvtools to read and explore renv lockfiles"
+date: last-modified
+date-format: "DD-MMM-YYYY"
+format:
+  html:
+    toc: true
+    number-sections: true
+    code-overflow: wrap
+---
+
+Renv creates renv.lock file which is a JSON object and that can be a bit unweildy to handle. What if you want to find out how many packages you have? Or how many packages from installed from CRAN. What if you want to remove a package from the list? What if you want to compare lockfiles? And why not do it all from the comfort of R and tidy tools.
+
+## Read lockfile
+
+Load the library and let's read in a lock file.
+
+```{r}
+library(renvtools)
+# using a sample lockfile from the package
+path <- file.path(system.file("extdata", package = "renvtools"), "renv-r4.4.1.lock")
+# provide path to a lock file, set type to tibble
+tbl <- read_lock(path, type = "tibble")
+tbl
+```
+
+This gives you a tibble with all the package information. Now you can handle this like you would with any tibble.
+
+```{r}
+library(dplyr)
+library(tidyr)
+
+# number of packages by source
+tbl |>
+  group_by(Source) |>
+  count()
+
+# number of packages by repository
+tbl |>
+  group_by(Repository) |>
+  count()
+
+# number of packages by source and repository
+tbl |>
+  group_by(Source, Repository) |>
+  count() |>
+  pivot_wider(names_from = Repository, values_from = n)
+
+# number of dependency packages for each package
+tbl |>
+  group_by(Package) |>
+  summarize(N = length(unlist(Requirements)))
+```
+
+You can also read in a lockfile as a list rather than a tibble.
+
+```{r}
+l <- read_lock(path, type = "list")
+```
+
+Read several lock files and you get a list of tibbles or a list of lists.
+
+```{r}
+paths <- list.files(file.path(system.file("extdata", package = "renvtools")), full.names = TRUE)
+# read as list
+# read_lock(paths[1:3], type = "list")
+# read as tibble
+read_lock(paths[1:3], type = "tibble")
+```
+
+## Write lockfile
+
+Filter packages as needed and then write to a new lock file. Note that NAs and NULLs may be discarded.
+
+```{r}
+#| eval: false
+# exclude bioconductor packages
+tbl1 <- tbl |> filter(Source != "Bioconductor")
+write_lock(tbl1, "renv-mod.lock")
+```
+
+## Summarizing lock files
+
+Summarize multiple lock files.
+
+```{r}
+paths <- list.files(system.file("extdata", package = "renvtools"), full.names = TRUE)
+l <- read_lock(paths, type = "list")
+d <- summarize_locks(l)
+d
+```
+
+For example, visualize the difference in number of packages between lockfiles. Note that this step requires additional package.
+
+```{r}
+#| fig-height: 5
+#| fig-width: 7
+library(UpSetR)
+lst <- d$pkgs
+names(lst) <- basename(paths)
+upset(fromList(lst), order.by = "freq")
+```
+
+## Comparing lockfiles
+
+Compare two or more lockfiles in a pairwise manner.
+
+```{r}
+paths <- list.files(system.file("extdata", package = "renvtools"), full.names = TRUE)
+l <- read_lock(paths, type = "list")
+compare_locks(l)
+```
+
+```{r}
+compare_locks(l)[,1:10] %>% as.data.frame()
+```
+
+## Other details
+
+The tibbles are actually a class of it's own called `rt_tibble`. The `rt_tibble` objects contains only information about the packages. What about other metadata such as R version, Bioconductor version etc? These are stored as attributes along with the tibble. They are used when writing lock files.
+
+They can be accessed using `attr()`.
+
+```{r}
+path <- file.path(system.file("extdata", package = "renvtools"), "renv-r4.4.1.lock")
+tbl <- read_lock(path, type = "tibble")
+attr(tbl, "metadata")
+```
+
+Or from a list of renvtools tibbles.
+
+```{r}
+paths <- list.files(file.path(system.file("extdata", package = "renvtools")), full.names = TRUE)
+tbl <- read_lock(paths, type = "tibble")
+lapply(tbl, attr, "metadata")
+```
+
+## Session
+
+```{r}
+sessionInfo()
+```

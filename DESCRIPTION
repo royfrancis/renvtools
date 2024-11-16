@@ -1,0 +1,25 @@
+Package: renvtools
+Title: Helper functions to work with renv lock files
+Version: 0.0.0.9000
+Date: 2024-11-16
+Authors@R: 
+    person("Roy", "Francis", , "zydoosu@gmail.com", role = c("aut", "cre"))
+Description: Helper functions to work with renv lock files.
+URL: https://github.com/royfrancis/renvtools
+License: GPL (>= 3)
+Encoding: UTF-8
+Depends:
+    R (>= 4.0)
+Imports:
+    dplyr,
+    jsonlite,
+    purrr,
+    renv,
+    tibble,
+    tidyr,
+    utils
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.2
+Suggests: 
+    rmarkdown,
+    testthat (>= 3.0.0)

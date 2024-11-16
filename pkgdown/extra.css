@@ -1,0 +1,6 @@
+/* Extra CSS */
+
+/* Wrap code rather than scroll */
+pre {
+  white-space: pre-wrap;
+}

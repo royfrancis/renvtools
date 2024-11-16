@@ -38,17 +38,10 @@
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto">
-<li class="active nav-item"><a class="nav-link" href="index.html"><span class="fa fa-home fa-lg"></span></a></li>
-<li class="nav-item dropdown">
-  <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
-<li><hr class="dropdown-divider"></li>
-    <li><h6 class="dropdown-header" data-toc-skip>Usage</h6></li>
-    <li><a class="dropdown-item" href="articles/usage.html">Usage</a></li>
-  </ul>
-</li>
-<li class="nav-item"><a class="nav-link" href="reference/index.html">Reference</a></li>
-<li class="nav-item"><a class="nav-link" href="news/index.html">Versions</a></li>
+<li class="active nav-item"><a class="nav-link" href="index.html"><span class="fa fa-home"></span> Home</a></li>
+<li class="nav-item"><a class="nav-link" href="articles/index.html"><span class="fa fa-file"></span> Articles</a></li>
+<li class="nav-item"><a class="nav-link" href="reference/index.html"><span class="fa fa-book"></span> Reference</a></li>
+<li class="nav-item"><a class="nav-link" href="news/index.html"><span class="fa fa-history"></span> Versions</a></li>
       </ul>
 <ul class="navbar-nav">
 <li class="nav-item"><a class="nav-link" href="https://github.com/royfrancis/renvtools"><span class="fa fa-github fa-lg fas"></span></a></li>
@@ -63,7 +56,12 @@
 <div class="page-header"><h1 id="renvtools-">renvtools <img src="logo.webp" alt="pixture-logo" style="width:120px;float:right;" align="right"><a class="anchor" aria-label="anchor" href="#renvtools-"></a>
 </h1></div>
 <p><a href="https://github.com/royfrancis/renvtools/actions?workflow=r-cmd-check"><img src="https://github.com/royfrancis/renvtools/workflows/r-cmd-check/badge.svg" alt="ci_badge"></a> <a href="https://app.codecov.io/gh/royfrancis/renvtools/" class="external-link"><img src="https://codecov.io/gh/royfrancis/renvtools/branch/main/graph/badge.svg?token=4DOQ8HNQFK" alt="codecov"></a> <a href="https://lifecycle.r-lib.org/articles/stages.html#experimental" class="external-link"><img src="https://lifecycle.r-lib.org/articles/figures/lifecycle-experimental.svg" alt="lifecycle_badge"></a></p>
-<p>An R package to read, write, summarize and compare renv lock files.</p>
+<p>An R package to read, write and compare renv lock files.</p>
+<ul>
+<li>Read lock files as lists or tibbles</li>
+<li>Write lock files</li>
+<li>Summarize and compare lock files</li>
+</ul>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>

@@ -22,13 +22,20 @@ navbar:
     - github
   components:
     home:
-      icon: fa-home fa-lg
+      text: Home
+      icon: fa-home
       href: index.html
+    articles:
+      text: Articles
+      icon: fa-file
+      href: articles/index.html
     reference:
       text: Reference
+      icon: fa-book
       href: reference/index.html
     news:
       text: Versions
+      icon: fa-history
       href: news/index.html
     github:
       icon: fa-github fa-lg fas
@@ -75,10 +82,3 @@ reference:
   - is.rt_list
   - print.rt_list
   - is.rt
-
-articles:
-
-- title: Articles
-  navbar: Usage
-  contents:
-  - usage

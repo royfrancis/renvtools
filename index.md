@@ -18,7 +18,36 @@ install.packages(c("dplyr", "jsonlite", "purrr", "renv", "tibble", "tidyr", "rem
 remotes::install_github("royfrancis/renvtools")
 ```
 
-For usage and demonstrations, refer to the articles linked in the menu.
+For usage and demonstration, refer to the articles linked in the menu.
+
+## Quick start
+
+A quick start for the impatient.
+
+```r
+library(renvtools)
+
+# path to lock file
+path <- file.path(system.file("extdata", package = "renvtools"), "renv-r4.4.1.lock")
+# read as list
+lst <- read_lock(path)
+# read as tibble
+tbl <- read_lock(path, format = "tibble")
+# write lockfile
+write_lock(tbl, "renv-mod.lock")
+
+# read multiple lock files
+paths <- list.files(file.path(system.file("extdata", package = "renvtools")), full.names = TRUE)
+# read as tibble
+tbl <- read_lock(paths, format = "tibble")
+# read as list
+lst <- read_lock(paths, format = "list")
+
+# summarize lock files
+d <- summarize_lock(lst)
+# compare lock files pairwise
+d <- compare_lock(lst)
+```
 
 ### Disclaimer
 

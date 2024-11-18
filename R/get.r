@@ -11,12 +11,8 @@
 get_version_r <- function(x) {
   if (!is.rt(x)) stop("Input must be a single rt_tibble (tibble) or a single rt_list (list) item.")
   if (is.rt_tibble(x)) x <- tbl_to_list(x)
-
-  if (!is.null(x$R$Version)) {
-    return(x$R$Version)
-  } else {
-    return(NA)
-  }
+  testthat::expect_true(!is.null(x$R$Version))
+  x$R$Version
 }
 
 #' @title Get Bioc version
@@ -32,12 +28,8 @@ get_version_r <- function(x) {
 get_version_bioc <- function(x) {
   if (!is.rt(x)) stop("Input must be a single rt_tibble (tibble) or a single rt_list (list) item.")
   if (is.rt_tibble(x)) x <- tbl_to_list(x)
-
-  if (!is.null(x$Bioconductor)) {
-    return(x$Bioconductor$Version)
-  } else {
-    return(NA)
-  }
+  testthat::expect_true(!is.null(x$Bioconductor))
+  x$Bioconductor$Version
 }
 
 #' @title Get renv version
@@ -56,11 +48,9 @@ get_version_renv <- function(x) {
 
   if ("renv" %in% names(x$Packages)) {
     return(x$Packages$renv$Version)
-  } else if (!is.null(x$renv$Version)) {
-    return(x$renv$Version)
-  } else {
-    return(NA)
   }
+  testthat::expect_true(!is.null(x$renv$Version))
+  x$renv$Version
 }
 
 #' @title Get package version

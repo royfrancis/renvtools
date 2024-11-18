@@ -1,5 +1,5 @@
 <a href="https://github.com/royfrancis/renvtools">
-  <img src="pkgdown/favicon/logo.webp" alt="renvtools logo" align="right" width="100px" style="position:relative;z-index:2;padding:5px;float:right;">
+  <img src="pkgdown/favicon/logo.webp" alt="renvtools logo" align="right" width="130px" style="position:relative;z-index:2;padding:5px;float:right;">
 </a>
 
 # renvtools

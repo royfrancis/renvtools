@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">renvtools</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9001</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -52,7 +52,8 @@
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>A tibble</p>
+    <p>A tibble with following columns: <br><strong>a,b</strong>: Labels for first and second lockfile compared <br><strong>a_rver,b_rver</strong>: R versions for the lock files compared <br><strong>a_renvver,b_renvver</strong>: renv package versions <br><strong>jaccard</strong>: Jaccard's index. 0 meaning no packages are shared and 1 meaning all
+packages are shared between lock files <br><strong>a_pkgs_len,b_pkgs_len</strong>: Number of packages <br><strong>a_pkgs_len_unique,b_pkgs_len_unique</strong>: Number of pkgs only in first or second lock file <br><strong>pkgs_total_len</strong>: Number of pkgs combining first and second lock files <br><strong>a_pkgs,b_pkgs</strong>: A list of character vector of pkg names in first and second lock files <br><strong>a_pkgs_unique,b_pkgs_unique</strong>: A list of character vector of unique packages in first or second lock files <br><strong>pkgs_common</strong>: A list of character vector of pkgs shared between the two lock files (intersect) <br><strong>pkgs_total</strong>: A list of character vector of all pkgs in the two lock files (union)</p>
     </div>
 
     <div class="section level2">

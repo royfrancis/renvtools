@@ -29,7 +29,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">renvtools</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9001</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -290,16 +290,17 @@ R version: 4.0.5
 <span><span class="va">d</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/summarize_lock.html">summarize_lock</a></span><span class="op">(</span><span class="va">l</span><span class="op">)</span></span>
 <span><span class="va">d</span></span></code></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 7 x 8
+<pre><code># A tibble: 8 x 8
   label rver  renvver pkgs_len repositories sources      pkgs       pkgs_req
   &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;      &lt;int&gt; &lt;named list&gt; &lt;named list&gt; &lt;named li&gt; &lt;named list&gt;
-1 lf_1  3.5.3 0.9.2        197 &lt;df [0 x 1]&gt; &lt;df [2 x 2]&gt; &lt;chr&gt;      &lt;named list&gt;
+1 lf_1  3.5.3 0.9.2        197 &lt;df [1 x 2]&gt; &lt;df [2 x 2]&gt; &lt;chr&gt;      &lt;named list&gt;
 2 lf_2  3.6.1 0.11.0       168 &lt;df [1 x 2]&gt; &lt;df [1 x 2]&gt; &lt;chr&gt;      &lt;named list&gt;
 3 lf_3  4.0.5 0.16.0       424 &lt;df [1 x 2]&gt; &lt;df [1 x 2]&gt; &lt;chr&gt;      &lt;named list&gt;
 4 lf_4  4.1.2 1.0.3        391 &lt;df [3 x 2]&gt; &lt;df [1 x 2]&gt; &lt;chr&gt;      &lt;named list&gt;
 5 lf_5  4.2.2 1.0.4        256 &lt;df [1 x 2]&gt; &lt;df [3 x 2]&gt; &lt;chr&gt;      &lt;named list&gt;
 6 lf_6  4.3.2 1.0.3        668 &lt;df [3 x 2]&gt; &lt;df [3 x 2]&gt; &lt;chr&gt;      &lt;named list&gt;
-7 lf_7  4.4.1 1.0.7        294 &lt;df [3 x 2]&gt; &lt;df [4 x 2]&gt; &lt;chr&gt;      &lt;named list&gt;</code></pre>
+7 lf_7  4.4.1 1.0.7        294 &lt;df [3 x 2]&gt; &lt;df [4 x 2]&gt; &lt;chr&gt;      &lt;named list&gt;
+8 lf_8  &lt;NA&gt;  &lt;NA&gt;          16 &lt;df [2 x 2]&gt; &lt;df [1 x 2]&gt; &lt;chr [16]&gt; &lt;named list&gt;</code></pre>
 </div>
 </div>
 <p>For example, visualize the difference in number of packages between lockfiles. Note that this step requires additional package.</p>
@@ -326,20 +327,20 @@ R version: 4.0.5
 <span><span class="va">l</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read_lock.html">read_lock</a></span><span class="op">(</span><span class="va">paths</span>, format <span class="op">=</span> <span class="st">"list"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/compare_lock.html">compare_lock</a></span><span class="op">(</span><span class="va">l</span><span class="op">)</span></span></code></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 21 x 18
+<pre><code># A tibble: 28 x 18
    a     b     a_rver b_rver a_renvver b_renvver jaccard a_pkgs_len b_pkgs_len
    &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;  &lt;chr&gt;     &lt;chr&gt;       &lt;dbl&gt;      &lt;int&gt;      &lt;int&gt;
- 1 lf_1  lf_2  3.5.3  3.6.1  0.9.2     0.11.0      0.448        197        168
- 2 lf_1  lf_3  3.5.3  4.0.5  0.9.2     0.16.0      0.316        197        424
- 3 lf_1  lf_4  3.5.3  4.1.2  0.9.2     1.0.3       0.292        197        391
- 4 lf_1  lf_5  3.5.3  4.2.2  0.9.2     1.0.4       0.373        197        256
- 5 lf_1  lf_6  3.5.3  4.3.2  0.9.2     1.0.3       0.257        197        668
- 6 lf_1  lf_7  3.5.3  4.4.1  0.9.2     1.0.7       0.292        197        294
- 7 lf_2  lf_3  3.6.1  4.0.5  0.11.0    0.16.0      0.349        168        424
- 8 lf_2  lf_4  3.6.1  4.1.2  0.11.0    1.0.3       0.354        168        391
- 9 lf_2  lf_5  3.6.1  4.2.2  0.11.0    1.0.4       0.457        168        256
-10 lf_2  lf_6  3.6.1  4.3.2  0.11.0    1.0.3       0.228        168        668
-# i 11 more rows
+ 1 lf_1  lf_2  3.5.3  3.6.1  0.9.2     0.11.0     0.448         197        168
+ 2 lf_1  lf_3  3.5.3  4.0.5  0.9.2     0.16.0     0.316         197        424
+ 3 lf_1  lf_4  3.5.3  4.1.2  0.9.2     1.0.3      0.292         197        391
+ 4 lf_1  lf_5  3.5.3  4.2.2  0.9.2     1.0.4      0.373         197        256
+ 5 lf_1  lf_6  3.5.3  4.3.2  0.9.2     1.0.3      0.257         197        668
+ 6 lf_1  lf_7  3.5.3  4.4.1  0.9.2     1.0.7      0.292         197        294
+ 7 lf_1  lf_8  3.5.3  &lt;NA&gt;   0.9.2     &lt;NA&gt;       0.0340        197         16
+ 8 lf_2  lf_3  3.6.1  4.0.5  0.11.0    0.16.0     0.349         168        424
+ 9 lf_2  lf_4  3.6.1  4.1.2  0.11.0    1.0.3      0.354         168        391
+10 lf_2  lf_5  3.6.1  4.2.2  0.11.0    1.0.4      0.457         168        256
+# i 18 more rows
 # i 9 more variables: a_pkgs_len_unique &lt;int&gt;, b_pkgs_len_unique &lt;int&gt;,
 #   pkgs_total_len &lt;int&gt;, a_pkgs &lt;list&gt;, b_pkgs &lt;list&gt;, a_pkgs_unique &lt;list&gt;,
 #   b_pkgs_unique &lt;list&gt;, pkgs_common &lt;list&gt;, pkgs_total &lt;list&gt;</code></pre>
@@ -349,28 +350,35 @@ R version: 4.0.5
 <div class="sourceCode cell-code" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/compare_lock.html">compare_lock</a></span><span class="op">(</span><span class="va">l</span><span class="op">)</span><span class="op">[</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">12</span><span class="op">]</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>      a    b a_rver b_rver a_renvver b_renvver   jaccard a_pkgs_len b_pkgs_len
-1  lf_1 lf_2  3.5.3  3.6.1     0.9.2    0.11.0 0.4484127        197        168
-2  lf_1 lf_3  3.5.3  4.0.5     0.9.2    0.16.0 0.3156780        197        424
-3  lf_1 lf_4  3.5.3  4.1.2     0.9.2     1.0.3 0.2923077        197        391
-4  lf_1 lf_5  3.5.3  4.2.2     0.9.2     1.0.4 0.3727273        197        256
-5  lf_1 lf_6  3.5.3  4.3.2     0.9.2     1.0.3 0.2572674        197        668
-6  lf_1 lf_7  3.5.3  4.4.1     0.9.2     1.0.7 0.2921053        197        294
-7  lf_2 lf_3  3.6.1  4.0.5    0.11.0    0.16.0 0.3485194        168        424
-8  lf_2 lf_4  3.6.1  4.1.2    0.11.0     1.0.3 0.3535109        168        391
-9  lf_2 lf_5  3.6.1  4.2.2    0.11.0     1.0.4 0.4570447        168        256
-10 lf_2 lf_6  3.6.1  4.3.2    0.11.0     1.0.3 0.2276065        168        668
-11 lf_2 lf_7  3.6.1  4.4.1    0.11.0     1.0.7 0.3588235        168        294
-12 lf_3 lf_4  4.0.5  4.1.2    0.16.0     1.0.3 0.3674497        424        391
-13 lf_3 lf_5  4.0.5  4.2.2    0.16.0     1.0.4 0.3600000        424        256
-14 lf_3 lf_6  4.0.5  4.3.2    0.16.0     1.0.3 0.3172497        424        668
-15 lf_3 lf_7  4.0.5  4.4.1    0.16.0     1.0.7 0.2821429        424        294
-16 lf_4 lf_5  4.1.2  4.2.2     1.0.3     1.0.4 0.3824786        391        256
-17 lf_4 lf_6  4.1.2  4.3.2     1.0.3     1.0.3 0.3254068        391        668
-18 lf_4 lf_7  4.1.2  4.4.1     1.0.3     1.0.7 0.4152893        391        294
-19 lf_5 lf_6  4.2.2  4.3.2     1.0.4     1.0.3 0.3275862        256        668
-20 lf_5 lf_7  4.2.2  4.4.1     1.0.4     1.0.7 0.3994911        256        294
-21 lf_6 lf_7  4.3.2  4.4.1     1.0.3     1.0.7 0.4315476        668        294
+<pre><code>      a    b a_rver b_rver a_renvver b_renvver    jaccard a_pkgs_len b_pkgs_len
+1  lf_1 lf_2  3.5.3  3.6.1     0.9.2    0.11.0 0.44841270        197        168
+2  lf_1 lf_3  3.5.3  4.0.5     0.9.2    0.16.0 0.31567797        197        424
+3  lf_1 lf_4  3.5.3  4.1.2     0.9.2     1.0.3 0.29230769        197        391
+4  lf_1 lf_5  3.5.3  4.2.2     0.9.2     1.0.4 0.37272727        197        256
+5  lf_1 lf_6  3.5.3  4.3.2     0.9.2     1.0.3 0.25726744        197        668
+6  lf_1 lf_7  3.5.3  4.4.1     0.9.2     1.0.7 0.29210526        197        294
+7  lf_1 lf_8  3.5.3   &lt;NA&gt;     0.9.2      &lt;NA&gt; 0.03398058        197         16
+8  lf_2 lf_3  3.6.1  4.0.5    0.11.0    0.16.0 0.34851936        168        424
+9  lf_2 lf_4  3.6.1  4.1.2    0.11.0     1.0.3 0.35351090        168        391
+10 lf_2 lf_5  3.6.1  4.2.2    0.11.0     1.0.4 0.45704467        168        256
+11 lf_2 lf_6  3.6.1  4.3.2    0.11.0     1.0.3 0.22760646        168        668
+12 lf_2 lf_7  3.6.1  4.4.1    0.11.0     1.0.7 0.35882353        168        294
+13 lf_2 lf_8  3.6.1   &lt;NA&gt;    0.11.0      &lt;NA&gt; 0.03954802        168         16
+14 lf_3 lf_4  4.0.5  4.1.2    0.16.0     1.0.3 0.36744966        424        391
+15 lf_3 lf_5  4.0.5  4.2.2    0.16.0     1.0.4 0.36000000        424        256
+16 lf_3 lf_6  4.0.5  4.3.2    0.16.0     1.0.3 0.31724970        424        668
+17 lf_3 lf_7  4.0.5  4.4.1    0.16.0     1.0.7 0.28214286        424        294
+18 lf_3 lf_8  4.0.5   &lt;NA&gt;    0.16.0      &lt;NA&gt; 0.02088167        424         16
+19 lf_4 lf_5  4.1.2  4.2.2     1.0.3     1.0.4 0.38247863        391        256
+20 lf_4 lf_6  4.1.2  4.3.2     1.0.3     1.0.3 0.32540676        391        668
+21 lf_4 lf_7  4.1.2  4.4.1     1.0.3     1.0.7 0.41528926        391        294
+22 lf_4 lf_8  4.1.2   &lt;NA&gt;     1.0.3      &lt;NA&gt; 0.03037975        391         16
+23 lf_5 lf_6  4.2.2  4.3.2     1.0.4     1.0.3 0.32758621        256        668
+24 lf_5 lf_7  4.2.2  4.4.1     1.0.4     1.0.7 0.39949109        256        294
+25 lf_5 lf_8  4.2.2   &lt;NA&gt;     1.0.4      &lt;NA&gt; 0.03422053        256         16
+26 lf_6 lf_7  4.3.2  4.4.1     1.0.3     1.0.7 0.43154762        668        294
+27 lf_6 lf_8  4.3.2   &lt;NA&gt;     1.0.3      &lt;NA&gt; 0.02395210        668         16
+28 lf_7 lf_8  4.4.1   &lt;NA&gt;     1.0.7      &lt;NA&gt; 0.05442177        294         16
    a_pkgs_len_unique b_pkgs_len_unique pkgs_total_len
 1                 84                55            252
 2                 48               275            472
@@ -378,21 +386,28 @@ R version: 4.0.5
 4                 74               133            330
 5                 20               491            688
 6                 86               183            380
-7                 15               271            439
-8                 22               245            413
-9                 35               123            291
-10                13               513            681
-11                46               172            340
-12               205               172            596
-13               244                76            500
-14               161               405            829
-15               266               136            560
-16               212                77            468
-17               131               408            799
-18               190                93            484
-19                28               440            696
-20                99               137            393
-21               378                 4            672</code></pre>
+7                190                 9            206
+8                 15               271            439
+9                 22               245            413
+10                35               123            291
+11                13               513            681
+12                46               172            340
+13               161                 9            177
+14               205               172            596
+15               244                76            500
+16               161               405            829
+17               266               136            560
+18               415                 7            431
+19               212                77            468
+20               131               408            799
+21               190                93            484
+22               379                 4            395
+23                28               440            696
+24                99               137            393
+25               247                 7            263
+26               378                 4            672
+27               652                 0            668
+28               278                 0            294</code></pre>
 </div>
 </div>
 </section><section class="level2" data-number="5"><h2 data-number="5" id="other-details">
@@ -577,7 +592,12 @@ $lf_7$R$Repositories
 
 $lf_7$Bioconductor
 $lf_7$Bioconductor$Version
-[1] "3.19"</code></pre>
+[1] "3.19"
+
+
+
+$lf_8
+named list()</code></pre>
 </div>
 </div>
 </section><section class="level2" data-number="6"><h2 data-number="6" id="session">
@@ -588,25 +608,24 @@ $lf_7$Bioconductor$Version
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/sessionInfo.html" class="external-link">sessionInfo</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>R version 4.4.1 (2024-06-14)
-Platform: x86_64-apple-darwin13.4.0
-Running under: macOS Big Sur ... 10.16
+Platform: aarch64-apple-darwin20.0.0
+Running under: macOS 15.1
 
 Matrix products: default
-BLAS:   /System/Library/Frameworks/Accelerate.framework/Versions/A/Frameworks/vecLib.framework/Versions/A/libBLAS.dylib
-LAPACK: /opt/homebrew/Caskroom/miniforge/base/envs/r-4.4/lib/liblapack-netlib.3.9.0.dylib
+BLAS/LAPACK: /opt/homebrew/Caskroom/miniforge/base/envs/r-4.4-arm/lib/libopenblas.0.dylib;  LAPACK version 3.12.0
 
 locale:
 [1] C
 
 time zone: Europe/Stockholm
-tzcode source: internal
+tzcode source: system (macOS)
 
 attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base
 
 other attached packages:
 [1] UpSetR_1.4.0         tidyr_1.3.1          dplyr_1.1.4
-[4] renvtools_0.0.0.9000
+[4] renvtools_0.0.0.9001
 
 loaded via a namespace (and not attached):
  [1] gtable_0.3.5      jsonlite_1.8.8    compiler_4.4.1    renv_1.0.7
@@ -614,11 +633,11 @@ loaded via a namespace (and not attached):
  [9] yaml_2.3.10       fastmap_1.2.0     ggplot2_3.5.1     R6_2.5.1
 [13] plyr_1.8.9        labeling_0.4.3    generics_0.1.3    knitr_1.48
 [17] tibble_3.2.1      munsell_0.5.1     pillar_1.9.0      rlang_1.1.4
-[21] utf8_1.2.4        xfun_0.47         cli_3.6.3         withr_3.0.1
-[25] magrittr_2.0.3    digest_0.6.37     grid_4.4.1        lifecycle_1.0.4
-[29] vctrs_0.6.5       evaluate_0.24.0   glue_1.7.0        farver_2.1.2
-[33] fansi_1.0.6       colorspace_2.1-1  rmarkdown_2.28    purrr_1.0.2
-[37] tools_4.4.1       pkgconfig_2.0.3   htmltools_0.5.8.1</code></pre>
+[21] utf8_1.2.4        xfun_0.48         cli_3.6.3         withr_3.0.1
+[25] magrittr_2.0.3    digest_0.6.37     grid_4.4.1        rstudioapi_0.16.0
+[29] lifecycle_1.0.4   vctrs_0.6.5       evaluate_0.24.0   glue_1.8.0
+[33] farver_2.1.2      fansi_1.0.6       colorspace_2.1-1  rmarkdown_2.28
+[37] purrr_1.0.2       tools_4.4.1       pkgconfig_2.0.3   htmltools_0.5.8.1</code></pre>
 </div>
 </div>
 </section><script id="quarto-html-after-body" type="application/javascript">

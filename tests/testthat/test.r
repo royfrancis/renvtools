@@ -160,6 +160,11 @@ test_that("list of list", {
   expect_error(get_version_r(read_lock(paths, format = "tibble")))
 })
 
+test_that("missing r", {
+  l <- read_lock(list.files(system.file("extdata", package = "renvtools"), pattern = "bad", full.names = TRUE))
+  expect_equal(get_version_r(l), NA)
+})
+
 # get_version_bioc -------------------------------------------------------------
 
 testthat::context("get_version_bioc")
@@ -188,6 +193,11 @@ test_that("list of list", {
   expect_error(get_version_bioc(read_lock(paths, format = "tibble")))
 })
 
+test_that("missing bioc", {
+  l <- read_lock(list.files(system.file("extdata", package = "renvtools"), pattern = "bad", full.names = TRUE))
+  expect_equal(get_version_bioc(l), NA)
+})
+
 # get_version_renv -------------------------------------------------------------
 
 testthat::context("get_version_renv")
@@ -214,6 +224,11 @@ test_that("list of list", {
   expect_error(get_version_renv(read_lock(paths, format = "list")))
   expect_error(get_version_renv(read_lock(paths, format = "renv")))
   expect_error(get_version_renv(read_lock(paths, format = "tibble")))
+})
+
+test_that("missing renv", {
+  l <- read_lock(list.files(system.file("extdata", package = "renvtools"), pattern = "bad", full.names = TRUE))
+  expect_equal(get_version_renv(l), NA)
 })
 
 # get_version_pkg --------------------------------------------------------------

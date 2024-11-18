@@ -148,7 +148,15 @@ write_lock <- function(x, path) {
 #' @title Summarize lock files
 #' @description Summarize lock files
 #' @param x A list of lists or list of 'rt_tibble'. An output from `read_lock()`.
-#' @return A tibble
+#' @return A tibble with following columns: \cr
+#' \strong{label}: Lock file label. A label is created if input paths are not named. \cr
+#' \strong{rver}: Version of R \cr
+#' \strong{renvver}: Version of renv package \cr
+#' \strong{pkgs_len}: Number of packages in the lock file \cr
+#' \strong{repositories}: A data.frame with repo and counts \cr
+#' \strong{sources}: A data.frame with source and counts \cr
+#' \strong{pkgs}: A list of character vector of package names \cr
+#' \strong{pkgs_req}: A list of character vector of required package names
 #' @examples
 #' paths <- c(
 #'   file.path(system.file("extdata", package = "renvtools"), "renv-r4.4.1.lock"),
@@ -185,11 +193,25 @@ summarize_lock <- function(x) {
   tib <- tibble(lock_files = lst) |>
     mutate(
       label = names(lst),
-      rver = map_chr(lock_files, ~ .x$R$Version),
+      rver = map_chr(lock_files, get_version_r),
       renvver = map_chr(lock_files, get_version_renv),
       pkgs_len = map_int(lock_files, ~ length(.x$Packages)),
-      repositories = map(lst, ~ as.data.frame(table(unlist(map(.x$Packages, "Repository"))))),
-      sources = map(lst, ~ as.data.frame(table(unlist(map(.x$Packages, "Source"))))),
+      repositories = map(lst, ~ {
+        repo_data <- unlist(map(.x$Packages, "Repository"))
+        if (length(repo_data) == 0) {
+          data.frame(repo = NA_character_, counts = NA_integer_)
+        } else {
+          setNames(na.omit(as.data.frame(table(repo_data))), c("repo", "counts"))
+        }
+      }),
+      sources = map(lst, ~ {
+        source_data <- unlist(map(.x$Packages, "Source"))
+        if (length(source_data) == 0) {
+          data.frame(source = NA_character_, counts = NA_integer_)
+        } else {
+          setNames(na.omit(as.data.frame(table(source_data))), c("source", "counts"))
+        }
+      }),
       pkgs = map(lock_files, ~ names(.x$Packages)),
       pkgs_req = map(lock_files, ~ map(.x$Packages, "Requirements"))
     ) |>
@@ -238,8 +260,8 @@ compare_lock_pair <- function(x) {
   dfr <- tibble(
     a = names(lst)[1],
     b = names(lst)[2],
-    a_rver = lst[[1]]$R$Version,
-    b_rver = lst[[2]]$R$Version,
+    a_rver = get_version_r(lst[[1]]),
+    b_rver = get_version_r(lst[[2]]),
     a_renvver = get_version_renv(lst[[1]]),
     b_renvver = get_version_renv(lst[[2]]),
     jaccard = jaccard(a_pkgs, b_pkgs),
@@ -262,7 +284,19 @@ compare_lock_pair <- function(x) {
 #' @title Compare lock files
 #' @description Compare lock files
 #' @param x A list of lists or list of 'rt_tibble'. An output from `read_lock()`.
-#' @return A tibble
+#' @return A tibble with following columns: \cr
+#' \strong{a,b}: Labels for first and second lockfile compared \cr
+#' \strong{a_rver,b_rver}: R versions for the lock files compared \cr
+#' \strong{a_renvver,b_renvver}: renv package versions \cr
+#' \strong{jaccard}: Jaccard's index. 0 meaning no packages are shared and 1 meaning all
+#' packages are shared between lock files \cr
+#' \strong{a_pkgs_len,b_pkgs_len}: Number of packages \cr
+#' \strong{a_pkgs_len_unique,b_pkgs_len_unique}: Number of pkgs only in first or second lock file \cr
+#' \strong{pkgs_total_len}: Number of pkgs combining first and second lock files \cr
+#' \strong{a_pkgs,b_pkgs}: A list of character vector of pkg names in first and second lock files \cr
+#' \strong{a_pkgs_unique,b_pkgs_unique}: A list of character vector of unique packages in first or second lock files \cr
+#' \strong{pkgs_common}: A list of character vector of pkgs shared between the two lock files (intersect) \cr
+#' \strong{pkgs_total}: A list of character vector of all pkgs in the two lock files (union)
 #' @examples
 #' paths <- c(
 #'   file.path(system.file("extdata", package = "renvtools"), "renv-r4.4.1.lock"),

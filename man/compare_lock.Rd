@@ -10,7 +10,19 @@ compare_lock(x)
 \item{x}{A list of lists or list of 'rt_tibble'. An output from \code{read_lock()}.}
 }
 \value{
-A tibble
+A tibble with following columns: \cr
+\strong{a,b}: Labels for first and second lockfile compared \cr
+\strong{a_rver,b_rver}: R versions for the lock files compared \cr
+\strong{a_renvver,b_renvver}: renv package versions \cr
+\strong{jaccard}: Jaccard's index. 0 meaning no packages are shared and 1 meaning all
+packages are shared between lock files \cr
+\strong{a_pkgs_len,b_pkgs_len}: Number of packages \cr
+\strong{a_pkgs_len_unique,b_pkgs_len_unique}: Number of pkgs only in first or second lock file \cr
+\strong{pkgs_total_len}: Number of pkgs combining first and second lock files \cr
+\strong{a_pkgs,b_pkgs}: A list of character vector of pkg names in first and second lock files \cr
+\strong{a_pkgs_unique,b_pkgs_unique}: A list of character vector of unique packages in first or second lock files \cr
+\strong{pkgs_common}: A list of character vector of pkgs shared between the two lock files (intersect) \cr
+\strong{pkgs_total}: A list of character vector of all pkgs in the two lock files (union)
 }
 \description{
 Compare lock files

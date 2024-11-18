@@ -10,7 +10,15 @@ summarize_lock(x)
 \item{x}{A list of lists or list of 'rt_tibble'. An output from \code{read_lock()}.}
 }
 \value{
-A tibble
+A tibble with following columns: \cr
+\strong{label}: Lock file label. A label is created if input paths are not named. \cr
+\strong{rver}: Version of R \cr
+\strong{renvver}: Version of renv package \cr
+\strong{pkgs_len}: Number of packages in the lock file \cr
+\strong{repositories}: A data.frame with repo and counts \cr
+\strong{sources}: A data.frame with source and counts \cr
+\strong{pkgs}: A list of character vector of package names \cr
+\strong{pkgs_req}: A list of character vector of required package names
 }
 \description{
 Summarize lock files

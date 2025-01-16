@@ -1,3 +1,11 @@
+# renvtools 0.0.0.9002
+
+- 16-Jan-2025
+- Fixed a bug in compare_lock_pair() that returned incorrect counts
+- Renamed variables and columns in compare_lock_pair()
+- Added column pkgs_len_common
+- Updated tests to check pkg length in compare_lock() output
+
 # renvtools 0.0.0.9001
 
 - 18-Nov-2024

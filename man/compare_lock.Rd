@@ -12,17 +12,18 @@ compare_lock(x)
 \value{
 A tibble with following columns: \cr
 \strong{a,b}: Labels for first and second lockfile compared \cr
-\strong{a_rver,b_rver}: R versions for the lock files compared \cr
-\strong{a_renvver,b_renvver}: renv package versions \cr
+\strong{rver_a,rver_b}: R versions for the lock files compared \cr
+\strong{renvver_a,renvver_b}: renv package versions \cr
 \strong{jaccard}: Jaccard's index. 0 meaning no packages are shared and 1 meaning all
 packages are shared between lock files \cr
-\strong{a_pkgs_len,b_pkgs_len}: Number of packages \cr
-\strong{a_pkgs_len_unique,b_pkgs_len_unique}: Number of pkgs only in first or second lock file \cr
-\strong{pkgs_total_len}: Number of pkgs combining first and second lock files \cr
-\strong{a_pkgs,b_pkgs}: A list of character vector of pkg names in first and second lock files \cr
-\strong{a_pkgs_unique,b_pkgs_unique}: A list of character vector of unique packages in first or second lock files \cr
+\strong{pkgs_len_a,pkgs_len_b}: Number of packages \cr
+\strong{pkgs_len_unique_a,pkgs_len_unique_b}: Number of pkgs only in first or second lock file \cr
+\strong{pkgs_common_len}: Number of pkgs shared between the two lock files (intersect) \cr
+\strong{pkgs_total_len}: Number of total unique pkgs in both lock files (union) \cr
+\strong{pkgs_a,pkgs_b}: A list of character vector of pkg names in first or second lock file \cr
+\strong{pkgs_unique_a,pkgs_unique_b}: A list of character vector of unique packages in first or second lock file \cr
 \strong{pkgs_common}: A list of character vector of pkgs shared between the two lock files (intersect) \cr
-\strong{pkgs_total}: A list of character vector of all pkgs in the two lock files (union)
+\strong{pkgs_total}: A list of character vector of all unique pkgs in both lock files (union)
 }
 \description{
 Compare lock files

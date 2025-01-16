@@ -1,7 +1,7 @@
 Package: renvtools
 Title: Helper functions to work with renv lock files
-Version: 0.0.0.9001
-Date: 2024-11-18
+Version: 0.0.0.9002
+Date: 2025-01-16
 Authors@R: 
     person("Roy", "Francis", , "zydoosu@gmail.com", role = c("aut", "cre"))
 Description: Helper functions to work with renv lock files.

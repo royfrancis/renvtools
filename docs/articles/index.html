@@ -14,8 +14,8 @@
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.4.2/css/all.min.css" rel="stylesheet">
-<link href="../deps/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><script src="index_files/libs/quarto-html/popper.min.js"></script><script src="index_files/libs/quarto-html/tippy.umd.min.js"></script><link href="index_files/libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="index_files/libs/quarto-html/light-border.css" rel="stylesheet">
 <!-- pkgdown --><script src="../pkgdown.js"></script><link href="../extra.css" rel="stylesheet">
@@ -29,7 +29,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">renvtools</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9001</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9002</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -57,7 +57,7 @@
       <h1>Usage</h1>
       <p class="subtitle">Using renvtools to read and explore renv lockfiles</p>
 
-      <p class="date">16-Nov-2024</p>
+      <p class="date">16-Jan-2025</p>
 
       <small class="dont-index">Source: <a href="https://github.com/royfrancis/renvtools/blob/HEAD/vignettes/index.qmd"><code>vignettes/index.qmd</code></a></small>
       <div class="d-none name"><code></code></div>
@@ -75,8 +75,13 @@
 <p>Load the library and let’s read in a lock file. If paths are named, they are used in downstream functions else they are named automatically.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/royfrancis/renvtools">renvtools</a></span><span class="op">)</span></span>
-<span><span class="co"># using a sample lockfile from the package</span></span>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/royfrancis/renvtools">renvtools</a></span><span class="op">)</span></span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Error in get(paste0(generic, ".", class), envir = get_method_env()) :
+  object 'type_sum.accel' not found</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># using a sample lockfile from the package</span></span>
 <span><span class="va">path</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, package <span class="op">=</span> <span class="st">"renvtools"</span><span class="op">)</span>, <span class="st">"renv-r4.4.1.lock"</span><span class="op">)</span></span>
 <span><span class="co"># provide path to a lock file, set format to tibble</span></span>
 <span><span class="va">lst</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read_lock.html">read_lock</a></span><span class="op">(</span><span class="va">path</span><span class="op">)</span></span>
@@ -90,7 +95,7 @@ Packages: 294</code></pre>
 </div>
 <p>You can get some useful information about the lockfile. You can also explore this data as you would explore a list.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/get_version_r.html">get_version_r</a></span><span class="op">(</span><span class="va">lst</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/get_version_bioc.html">get_version_bioc</a></span><span class="op">(</span><span class="va">lst</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/get_version_renv.html">get_version_renv</a></span><span class="op">(</span><span class="va">lst</span><span class="op">)</span></span>
@@ -104,7 +109,7 @@ Packages: 294</code></pre>
 </div>
 <p>The default is to read into a list. Change <code>format</code> to <strong>tibble</strong> to read as table.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">tbl</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read_lock.html">read_lock</a></span><span class="op">(</span><span class="va">path</span>, format <span class="op">=</span> <span class="st">"tibble"</span><span class="op">)</span></span>
 <span><span class="va">tbl</span></span></code></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -133,7 +138,7 @@ Bioc version: 3.19
 </p>
 <p>This gives you a tibble with all the package information. Now you can handle this like you would with any tibble.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/message.html" class="external-link">suppressMessages</a></span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/message.html" class="external-link">suppressMessages</a></span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyr.tidyverse.org" class="external-link">tidyr</a></span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
@@ -151,7 +156,7 @@ Bioc version: 3.19
 3 Repository     288
 4 unknown          1</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># number of packages by repository</span></span>
 <span><span class="va">tbl</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">Repository</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -166,7 +171,7 @@ Bioc version: 3.19
 3 RSPM                272
 4 &lt;NA&gt;                  2</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># number of packages by source and repository</span></span>
 <span><span class="va">tbl</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">Source</span>, <span class="va">Repository</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -182,7 +187,7 @@ Bioc version: 3.19
 3 Repository                    NA    NA    16   272
 4 unknown                       NA     1    NA    NA</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># number of dependency packages for each package</span></span>
 <span><span class="va">tbl</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">Package</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -206,7 +211,7 @@ Bioc version: 3.19
 </div>
 <p>Read several lock files and you get a list of tibbles or a list of lists.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">paths</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.files.html" class="external-link">list.files</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, package <span class="op">=</span> <span class="st">"renvtools"</span><span class="op">)</span><span class="op">)</span>, full.names <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="co"># read as list</span></span>
 <span><span class="co"># read_lock(paths[1:3], format = "list")</span></span>
@@ -274,7 +279,7 @@ R version: 4.0.5
 <i class="fas fa-exclamation-circle"></i>   Reading a loackfile and then writing it may not give identical lockfiles as NAs and NULLs may be discarded.
 </p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># exclude bioconductor packages</span></span>
 <span><span class="va">tbl1</span> <span class="op">&lt;-</span> <span class="va">tbl</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">Source</span> <span class="op">!=</span> <span class="st">"Bioconductor"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/write_lock.html">write_lock</a></span><span class="op">(</span><span class="va">tbl1</span>, <span class="st">"renv-mod.lock"</span><span class="op">)</span></span></code></pre></div>
@@ -284,7 +289,7 @@ R version: 4.0.5
 </h2>
 <p>Summarize multiple lock files.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">paths</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.files.html" class="external-link">list.files</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, package <span class="op">=</span> <span class="st">"renvtools"</span><span class="op">)</span>, full.names <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="va">l</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read_lock.html">read_lock</a></span><span class="op">(</span><span class="va">paths</span>, format <span class="op">=</span> <span class="st">"list"</span><span class="op">)</span></span>
 <span><span class="va">d</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/summarize_lock.html">summarize_lock</a></span><span class="op">(</span><span class="va">l</span><span class="op">)</span></span>
@@ -303,16 +308,35 @@ R version: 4.0.5
 8 lf_8  &lt;NA&gt;  &lt;NA&gt;          16 &lt;df [2 x 2]&gt; &lt;df [1 x 2]&gt; &lt;chr [16]&gt; &lt;named list&gt;</code></pre>
 </div>
 </div>
-<p>For example, visualize the difference in number of packages between lockfiles. Note that this step requires additional package.</p>
+<p>For example, visualize the difference in number of packages between lockfiles. Note that this step requires additional packages.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb22"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/jolars/eulerr" class="external-link">eulerr</a></span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="https://jolars.github.io/eulerr/reference/euler.html" class="external-link">euler</a></span><span class="op">(</span><span class="va">d</span><span class="op">$</span><span class="va">pkgs</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span>,quantities<span class="op">=</span><span class="cn">T</span><span class="op">)</span></span></code></pre></div>
+<div class="cell-output-display">
+<div>
+<figure><p><img src="index_files/figure-html/unnamed-chunk-8-1.png" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb23"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="https://jolars.github.io/eulerr/reference/euler.html" class="external-link">euler</a></span><span class="op">(</span><span class="va">d</span><span class="op">$</span><span class="va">pkgs</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span>,quantities<span class="op">=</span><span class="cn">T</span><span class="op">)</span></span></code></pre></div>
+<div class="cell-output-display">
+<div>
+<figure><p><img src="index_files/figure-html/unnamed-chunk-8-2.png" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="http://github.com/hms-dbmi/UpSetR" class="external-link">UpSetR</a></span><span class="op">)</span></span>
 <span><span class="va">lst</span> <span class="op">&lt;-</span> <span class="va">d</span><span class="op">$</span><span class="va">pkgs</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">lst</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/basename.html" class="external-link">basename</a></span><span class="op">(</span><span class="va">paths</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/UpSetR/man/upset.html" class="external-link">upset</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/UpSetR/man/fromList.html" class="external-link">fromList</a></span><span class="op">(</span><span class="va">lst</span><span class="op">)</span>, order.by <span class="op">=</span> <span class="st">"freq"</span><span class="op">)</span></span></code></pre></div>
 <div class="cell-output-display">
 <div>
-<figure><p><img src="index_files/figure-html/unnamed-chunk-8-1.png" width="672"></p>
+<figure><p><img src="index_files/figure-html/unnamed-chunk-9-1.png" width="672"></p>
 </figure>
 </div>
 </div>
@@ -322,13 +346,13 @@ R version: 4.0.5
 </h2>
 <p>Compare two or more lockfiles in a pairwise manner.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">paths</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.files.html" class="external-link">list.files</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, package <span class="op">=</span> <span class="st">"renvtools"</span><span class="op">)</span>, full.names <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="va">l</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read_lock.html">read_lock</a></span><span class="op">(</span><span class="va">paths</span>, format <span class="op">=</span> <span class="st">"list"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/compare_lock.html">compare_lock</a></span><span class="op">(</span><span class="va">l</span><span class="op">)</span></span></code></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 28 x 18
-   a     b     a_rver b_rver a_renvver b_renvver jaccard a_pkgs_len b_pkgs_len
+<pre><code># A tibble: 28 x 19
+   a     b     rver_a rver_b renvver_a renvver_b jaccard pkgs_len_a pkgs_len_b
    &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;  &lt;chr&gt;     &lt;chr&gt;       &lt;dbl&gt;      &lt;int&gt;      &lt;int&gt;
  1 lf_1  lf_2  3.5.3  3.6.1  0.9.2     0.11.0     0.448         197        168
  2 lf_1  lf_3  3.5.3  4.0.5  0.9.2     0.16.0     0.316         197        424
@@ -341,16 +365,17 @@ R version: 4.0.5
  9 lf_2  lf_4  3.6.1  4.1.2  0.11.0    1.0.3      0.354         168        391
 10 lf_2  lf_5  3.6.1  4.2.2  0.11.0    1.0.4      0.457         168        256
 # i 18 more rows
-# i 9 more variables: a_pkgs_len_unique &lt;int&gt;, b_pkgs_len_unique &lt;int&gt;,
-#   pkgs_total_len &lt;int&gt;, a_pkgs &lt;list&gt;, b_pkgs &lt;list&gt;, a_pkgs_unique &lt;list&gt;,
-#   b_pkgs_unique &lt;list&gt;, pkgs_common &lt;list&gt;, pkgs_total &lt;list&gt;</code></pre>
+# i 10 more variables: pkgs_len_unique_a &lt;int&gt;, pkgs_len_unique_b &lt;int&gt;,
+#   pkgs_len_common &lt;int&gt;, pkgs_len_total &lt;int&gt;, pkgs_a &lt;list&gt;, pkgs_b &lt;list&gt;,
+#   pkgs_unique_a &lt;list&gt;, pkgs_unique_b &lt;list&gt;, pkgs_common &lt;list&gt;,
+#   pkgs_total &lt;list&gt;</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/compare_lock.html">compare_lock</a></span><span class="op">(</span><span class="va">l</span><span class="op">)</span><span class="op">[</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">12</span><span class="op">]</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>      a    b a_rver b_rver a_renvver b_renvver    jaccard a_pkgs_len b_pkgs_len
+<pre><code>      a    b rver_a rver_b renvver_a renvver_b    jaccard pkgs_len_a pkgs_len_b
 1  lf_1 lf_2  3.5.3  3.6.1     0.9.2    0.11.0 0.44841270        197        168
 2  lf_1 lf_3  3.5.3  4.0.5     0.9.2    0.16.0 0.31567797        197        424
 3  lf_1 lf_4  3.5.3  4.1.2     0.9.2     1.0.3 0.29230769        197        391
@@ -379,35 +404,35 @@ R version: 4.0.5
 26 lf_6 lf_7  4.3.2  4.4.1     1.0.3     1.0.7 0.43154762        668        294
 27 lf_6 lf_8  4.3.2   &lt;NA&gt;     1.0.3      &lt;NA&gt; 0.02395210        668         16
 28 lf_7 lf_8  4.4.1   &lt;NA&gt;     1.0.7      &lt;NA&gt; 0.05442177        294         16
-   a_pkgs_len_unique b_pkgs_len_unique pkgs_total_len
-1                 84                55            252
-2                 48               275            472
-3                 64               258            455
-4                 74               133            330
-5                 20               491            688
-6                 86               183            380
-7                190                 9            206
-8                 15               271            439
-9                 22               245            413
-10                35               123            291
-11                13               513            681
-12                46               172            340
-13               161                 9            177
-14               205               172            596
-15               244                76            500
-16               161               405            829
-17               266               136            560
-18               415                 7            431
-19               212                77            468
-20               131               408            799
-21               190                93            484
-22               379                 4            395
-23                28               440            696
-24                99               137            393
-25               247                 7            263
-26               378                 4            672
-27               652                 0            668
-28               278                 0            294</code></pre>
+   pkgs_len_unique_a pkgs_len_unique_b pkgs_len_common
+1                 84                55             113
+2                 48               275             149
+3                 64               258             133
+4                 74               133             123
+5                 20               491             177
+6                 86               183             111
+7                190                 9               7
+8                 15               271             153
+9                 22               245             146
+10                35               123             133
+11                13               513             155
+12                46               172             122
+13               161                 9               7
+14               205               172             219
+15               244                76             180
+16               161               405             263
+17               266               136             158
+18               415                 7               9
+19               212                77             179
+20               131               408             260
+21               190                93             201
+22               379                 4              12
+23                28               440             228
+24                99               137             157
+25               247                 7               9
+26               378                 4             290
+27               652                 0              16
+28               278                 0              16</code></pre>
 </div>
 </div>
 </section><section class="level2" data-number="5"><h2 data-number="5" id="other-details">
@@ -415,7 +440,7 @@ R version: 4.0.5
 </h2>
 <p>The lists are a class of it’s own called <code>rt_list</code>. This is why they are printed a bit differently. But, they can be treated like regular lists.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb25"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb29"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">path</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, package <span class="op">=</span> <span class="st">"renvtools"</span><span class="op">)</span>, <span class="st">"renv-r4.4.1.lock"</span><span class="op">)</span></span>
 <span><span class="va">lst</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read_lock.html">read_lock</a></span><span class="op">(</span><span class="va">path</span>, format <span class="op">=</span> <span class="st">"list"</span><span class="op">)</span></span>
 <span><span class="va">lst</span></span></code></pre></div>
@@ -427,7 +452,7 @@ Packages: 294</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb27"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb31"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/class.html" class="external-link">class</a></span><span class="op">(</span><span class="va">lst</span><span class="op">)</span></span></code></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "rt_list" "list"   </code></pre>
@@ -435,7 +460,7 @@ Packages: 294</code></pre>
 </div>
 <p>The tibbles are also a class of it’s own called <code>rt_tibble</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb29"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb33"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">path</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, package <span class="op">=</span> <span class="st">"renvtools"</span><span class="op">)</span>, <span class="st">"renv-r4.4.1.lock"</span><span class="op">)</span></span>
 <span><span class="va">tbl</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read_lock.html">read_lock</a></span><span class="op">(</span><span class="va">path</span>, format <span class="op">=</span> <span class="st">"tibble"</span><span class="op">)</span></span>
 <span><span class="va">tbl</span></span></code></pre></div>
@@ -461,7 +486,7 @@ Bioc version: 3.19
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb31"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb35"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/class.html" class="external-link">class</a></span><span class="op">(</span><span class="va">tbl</span><span class="op">)</span></span></code></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "rt_tibble"  "tbl_df"     "tbl"        "data.frame"</code></pre>
@@ -469,7 +494,7 @@ Bioc version: 3.19
 </div>
 <p>The <code>rt_tibble</code> objects contains only information about the packages. What about other metadata such as R version, Bioconductor version etc? These are stored as attributes along with the tibble. They are used when writing lock files. They can be accessed using <code><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr()</a></code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb33"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb37"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">tbl</span>, <span class="st">"metadata"</span><span class="op">)</span></span></code></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>$R
@@ -488,7 +513,7 @@ $Bioconductor$Version
 </div>
 <p>Or from a list of renvtools tibbles.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb35"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb39"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">paths</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.files.html" class="external-link">list.files</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, package <span class="op">=</span> <span class="st">"renvtools"</span><span class="op">)</span><span class="op">)</span>, full.names <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="va">tbl</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read_lock.html">read_lock</a></span><span class="op">(</span><span class="va">paths</span>, format <span class="op">=</span> <span class="st">"tibble"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">tbl</span>, <span class="va">attr</span>, <span class="st">"metadata"</span><span class="op">)</span></span></code></pre></div>
@@ -604,40 +629,42 @@ named list()</code></pre>
 <span class="header-section-number">6</span> Session<a class="anchor" aria-label="anchor" href="#session"></a>
 </h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb37"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb41"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/sessionInfo.html" class="external-link">sessionInfo</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>R version 4.4.1 (2024-06-14)
-Platform: aarch64-apple-darwin20.0.0
-Running under: macOS 15.1
+Platform: x86_64-apple-darwin13.4.0
+Running under: macOS Big Sur ... 10.16
 
 Matrix products: default
-BLAS/LAPACK: /opt/homebrew/Caskroom/miniforge/base/envs/r-4.4-arm/lib/libopenblas.0.dylib;  LAPACK version 3.12.0
+BLAS:   /System/Library/Frameworks/Accelerate.framework/Versions/A/Frameworks/vecLib.framework/Versions/A/libBLAS.dylib
+LAPACK: /opt/homebrew/Caskroom/miniforge/base/envs/r-4.4/lib/liblapack-netlib.3.9.0.dylib
 
 locale:
 [1] C
 
 time zone: Europe/Stockholm
-tzcode source: system (macOS)
+tzcode source: internal
 
 attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base
 
 other attached packages:
-[1] UpSetR_1.4.0         tidyr_1.3.1          dplyr_1.1.4
-[4] renvtools_0.0.0.9001
+[1] UpSetR_1.4.0         eulerr_7.0.2         tidyr_1.3.1
+[4] dplyr_1.1.4          renvtools_0.0.0.9002
 
 loaded via a namespace (and not attached):
- [1] gtable_0.3.5      jsonlite_1.8.8    compiler_4.4.1    renv_1.0.7
- [5] tidyselect_1.2.1  Rcpp_1.0.13       gridExtra_2.3     scales_1.3.0
- [9] yaml_2.3.10       fastmap_1.2.0     ggplot2_3.5.1     R6_2.5.1
-[13] plyr_1.8.9        labeling_0.4.3    generics_0.1.3    knitr_1.48
-[17] tibble_3.2.1      munsell_0.5.1     pillar_1.9.0      rlang_1.1.4
-[21] utf8_1.2.4        xfun_0.48         cli_3.6.3         withr_3.0.1
-[25] magrittr_2.0.3    digest_0.6.37     grid_4.4.1        rstudioapi_0.16.0
-[29] lifecycle_1.0.4   vctrs_0.6.5       evaluate_0.24.0   glue_1.8.0
-[33] farver_2.1.2      fansi_1.0.6       colorspace_2.1-1  rmarkdown_2.28
-[37] purrr_1.0.2       tools_4.4.1       pkgconfig_2.0.3   htmltools_0.5.8.1</code></pre>
+ [1] gtable_0.3.6      jsonlite_1.8.9    compiler_4.4.1    renv_1.0.11
+ [5] tidyselect_1.2.1  Rcpp_1.0.13-1     gridExtra_2.3     scales_1.3.0
+ [9] yaml_2.3.10       fastmap_1.2.0     plyr_1.8.9        ggplot2_3.5.1
+[13] R6_2.5.1          labeling_0.4.3    generics_0.1.3    knitr_1.49
+[17] polyclip_1.10-7   tibble_3.2.1      munsell_0.5.1     pillar_1.10.0
+[21] polylabelr_0.3.0  rlang_1.1.4       utf8_1.2.4        xfun_0.49
+[25] cli_3.6.3         withr_3.0.2       magrittr_2.0.3    digest_0.6.37
+[29] grid_4.4.1        rstudioapi_0.17.1 lifecycle_1.0.4   vctrs_0.6.5
+[33] evaluate_1.0.1    glue_1.8.0        farver_2.1.2      colorspace_2.1-1
+[37] rmarkdown_2.29    purrr_1.0.2       tools_4.4.1       pkgconfig_2.0.3
+[41] htmltools_0.5.8.1</code></pre>
 </div>
 </div>
 </section><script id="quarto-html-after-body" type="application/javascript">
@@ -751,7 +778,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.</p>
 </div>
 
     </footer>

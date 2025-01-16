@@ -254,28 +254,29 @@ compare_lock_pair <- function(x) {
     return(intersection / union)
   }
 
-  a_pkgs <- as.character(map_chr(lst[[1]]$Packages, ~ .x$Package))
-  b_pkgs <- as.character(map_chr(lst[[2]]$Packages, ~ .x$Package))
+  p_a <- as.character(map_chr(lst[[1]]$Packages, ~ .x$Package))
+  p_b <- as.character(map_chr(lst[[2]]$Packages, ~ .x$Package))
 
   dfr <- tibble(
     a = names(lst)[1],
     b = names(lst)[2],
-    a_rver = get_version_r(lst[[1]]),
-    b_rver = get_version_r(lst[[2]]),
-    a_renvver = get_version_renv(lst[[1]]),
-    b_renvver = get_version_renv(lst[[2]]),
-    jaccard = jaccard(a_pkgs, b_pkgs),
-    a_pkgs_len = length(a_pkgs),
-    b_pkgs_len = length(lst[[2]]$Packages),
-    a_pkgs_len_unique = length(setdiff(a_pkgs, b_pkgs)),
-    b_pkgs_len_unique = length(setdiff(b_pkgs, a_pkgs)),
-    pkgs_total_len = length(union(a_pkgs, b_pkgs)),
-    a_pkgs = list(a_pkgs),
-    b_pkgs = list(b_pkgs),
-    a_pkgs_unique = list(setdiff(a_pkgs, b_pkgs)),
-    b_pkgs_unique = list(setdiff(b_pkgs, a_pkgs)),
-    pkgs_common = list(intersect(a_pkgs, b_pkgs)),
-    pkgs_total = list(union(a_pkgs, b_pkgs))
+    rver_a = get_version_r(lst[[1]]),
+    rver_b = get_version_r(lst[[2]]),
+    renvver_a = get_version_renv(lst[[1]]),
+    renvver_b = get_version_renv(lst[[2]]),
+    jaccard = jaccard(p_a, p_b),
+    pkgs_len_a = length(p_a),
+    pkgs_len_b = length(p_b),
+    pkgs_len_unique_a = length(setdiff(p_a, p_b)),
+    pkgs_len_unique_b = length(setdiff(p_b, p_a)),
+    pkgs_len_common = length(intersect(p_a, p_b)),
+    pkgs_len_total = length(union(p_a, p_b)),
+    pkgs_a = list(p_a),
+    pkgs_b = list(p_b),
+    pkgs_unique_a = list(setdiff(p_a, p_b)),
+    pkgs_unique_b = list(setdiff(p_b, p_a)),
+    pkgs_common = list(intersect(p_a, p_b)),
+    pkgs_total = list(union(p_a, p_b))
   )
 
   return(dfr)
@@ -286,17 +287,18 @@ compare_lock_pair <- function(x) {
 #' @param x A list of lists or list of 'rt_tibble'. An output from `read_lock()`.
 #' @return A tibble with following columns: \cr
 #' \strong{a,b}: Labels for first and second lockfile compared \cr
-#' \strong{a_rver,b_rver}: R versions for the lock files compared \cr
-#' \strong{a_renvver,b_renvver}: renv package versions \cr
+#' \strong{rver_a,rver_b}: R versions for the lock files compared \cr
+#' \strong{renvver_a,renvver_b}: renv package versions \cr
 #' \strong{jaccard}: Jaccard's index. 0 meaning no packages are shared and 1 meaning all
 #' packages are shared between lock files \cr
-#' \strong{a_pkgs_len,b_pkgs_len}: Number of packages \cr
-#' \strong{a_pkgs_len_unique,b_pkgs_len_unique}: Number of pkgs only in first or second lock file \cr
-#' \strong{pkgs_total_len}: Number of pkgs combining first and second lock files \cr
-#' \strong{a_pkgs,b_pkgs}: A list of character vector of pkg names in first and second lock files \cr
-#' \strong{a_pkgs_unique,b_pkgs_unique}: A list of character vector of unique packages in first or second lock files \cr
+#' \strong{pkgs_len_a,pkgs_len_b}: Number of packages \cr
+#' \strong{pkgs_len_unique_a,pkgs_len_unique_b}: Number of pkgs only in first or second lock file \cr
+#' \strong{pkgs_common_len}: Number of pkgs shared between the two lock files (intersect) \cr
+#' \strong{pkgs_total_len}: Number of total unique pkgs in both lock files (union) \cr
+#' \strong{pkgs_a,pkgs_b}: A list of character vector of pkg names in first or second lock file \cr
+#' \strong{pkgs_unique_a,pkgs_unique_b}: A list of character vector of unique packages in first or second lock file \cr
 #' \strong{pkgs_common}: A list of character vector of pkgs shared between the two lock files (intersect) \cr
-#' \strong{pkgs_total}: A list of character vector of all pkgs in the two lock files (union)
+#' \strong{pkgs_total}: A list of character vector of all unique pkgs in both lock files (union)
 #' @examples
 #' paths <- c(
 #'   file.path(system.file("extdata", package = "renvtools"), "renv-r4.4.1.lock"),

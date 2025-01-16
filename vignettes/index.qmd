@@ -110,7 +110,15 @@ d <- summarize_lock(l)
 d
 ```
 
-For example, visualize the difference in number of packages between lockfiles. Note that this step requires additional package.
+For example, visualize the difference in number of packages between lockfiles. Note that this step requires additional packages.
+
+```{r}
+#| fig-height: 5
+#| fig-width: 7
+library(eulerr)
+plot(euler(d$pkgs[1:2]),quantities=T)
+plot(euler(d$pkgs[1:3]),quantities=T)
+```
 
 ```{r}
 #| fig-height: 5

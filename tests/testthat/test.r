@@ -387,6 +387,22 @@ test_that("general", {
   expect_no_error(compare_lock_pair(l))
 })
 
+test_that("check pkg counts", {
+  l1 <-  read_lock(paths["renv-r3.5.3"], format = "list")
+  l2 <-  read_lock(paths["renv-r3.6.1"], format = "list")
+  l <- compare_lock_pair(list(l1,l2))
+  expect_equal(l$pkgs_len_a, 197)
+  expect_equal(l$pkgs_len_b, 168)
+  expect_equal(l$pkgs_len_unique_a, 84)
+  expect_equal(l$pkgs_len_unique_b, 55)
+  expect_equal(l$pkgs_len_a, length(unlist(l$pkgs_a)))
+  expect_equal(l$pkgs_len_b, length(unlist(l$pkgs_b)))
+  expect_equal(l$pkgs_len_unique_a, length(unlist(l$pkgs_unique_a)))
+  expect_equal(l$pkgs_len_unique_b, length(unlist(l$pkgs_unique_b)))
+  expect_equal(l$pkgs_len_common, length(unlist(l$pkgs_common)))
+  expect_equal(l$pkgs_len_total, length(unlist(l$pkgs_total)))
+})
+
 # compare_lock ----------------------------------------------------------------
 
 testthat::context("compare_lock")

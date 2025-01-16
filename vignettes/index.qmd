@@ -140,7 +140,7 @@ compare_lock(l)
 ```
 
 ```{r}
-compare_lock(l)[, 1:12] %>% as.data.frame()
+compare_lock(l)[, 1:13] %>% as.data.frame()
 ```
 
 ## Other details
